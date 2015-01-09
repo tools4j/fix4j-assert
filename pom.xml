@@ -18,7 +18,6 @@
         <module>fix4j-assert-all</module>
         <module>fix4j-assert-testcommon</module>
         <module>fix4j-assert-integration</module>
-        <module>fix4j-assert-gui</module>
     </modules>
 
     <properties>
