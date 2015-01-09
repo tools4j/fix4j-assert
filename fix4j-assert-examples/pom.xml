@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>fix4j-assert</artifactId>
+        <groupId>org.fix4j</groupId>
+        <version>0.1</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>fix4j-assert-examples</artifactId>
+
+    <!--
+    Have decided to try and use JUnit in the examples module, rather than spock.  For two reasons:
+    1.  It gives users some JUnit examples (all other tests in the project are currently spock.
+    2.  JUnit is more widely used, so will be more familiar in an examples context.
+    -->
+
+    <dependencies>
+        <dependency>
+            <groupId>org.fix4j</groupId>
+            <artifactId>fix4j-assert-core</artifactId>
+            <version>0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.fix4j</groupId>
+            <artifactId>fix4j-assert-all</artifactId>
+            <version>0.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.fix4j</groupId>
+            <artifactId>fix4j-assert-testcommon</artifactId>
+            <version>0.1</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+</project>

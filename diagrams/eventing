@@ -1,0 +1,49 @@
+#![Fix message path]
+ext:External[pe]
+qfa:QuickFixApplication[at]
+qfts:QuickFixTestSession[a]
+fromQuickFixMessageConverter:Consumer
+fromThirdPartyFixEngine:BlockingPipe
+toThirdPartyFixEngine:BlockingPipe
+fromNetwork-to-fixMessageQueue:Shunt[t]
+fixMessageQueue:BlockingPipe
+fixTestClientSession:FixTestClientSession[a]
+fixMessageAsserter:FixMessageAsserter[a]
+test:Test[at]
+
+
+*1 fromNetwork-to-fixMessageQueue
+fromNetwork-to-fixMessageQueue
+Created in:FixTestClientSession
+*1
+
+*1 fixMessageQueue
+fixMessageQueue
+Created in:FixTestClientSession
+*1
+
+*1 fromThirdPartyFixEngine
+fromThirdPartyFixEngine
+Created in:TestHelper
+*1
+
+*1 toThirdPartyFixEngine
+toThirdPartyFixEngine
+Created in:TestHelper
+*1
+
+*1 fromQuickFixMessageConverter
+fromQuickFixMessageConverter
+Created in: FromQuickFixMessageConverter
+by: QuickFixTestSession
+*1
+
+qfa:fromQuickFixMessageConverter.accept(fixMessage)
+fromQuickFixMessageConverter:fromThirdPartyFixEngine.accept(simpleMessage)
+fromNetwork-to-fixMessageQueue:fromThirdPartyFixEngine.get() returns Message
+fromNetwork-to-fixMessageQueue:fixMessageQueue.accept(simpleMessage)
+test:fixTestClientSession.discardUntilExpected()
+fixTestClientSession:fixMessageQueue.get()/poll() returns simpleMessage
+
+
+
