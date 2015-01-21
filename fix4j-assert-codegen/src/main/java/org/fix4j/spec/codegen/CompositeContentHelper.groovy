@@ -1,7 +1,4 @@
-package org.fix4j.test.codegen;
-
-import java.util.Iterator;
-
+package org.fix4j.spec.codegen
 /**
  * User: ben
  * Date: 9/09/2014

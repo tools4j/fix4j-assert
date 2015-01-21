@@ -5,6 +5,19 @@ It's written in Java and is designed to be used along side your test frameworks 
 
 Contact: [fix4j.assert@gmail.com](mailto:fix4j.assert@gmail.com)
 
+Table of Contents
+=================
+* [Sending a fix message to your application](#sending-a-fix-message-to-your-application)
+* [Receiving a fix message from your application](#receiving-a-fix-message-from-your-application)
+* [Quickstart/Example](#quickstartexample)
+* [Using more descriptive message formats](#using-more-descriptive-message-formats)
+* [Debugging your tests](#debugging-your-tests)
+* [Project Structure](#project-structure)
+* [How to use fix4j-assert modules](#how-to-use-fix4j-assert-modules)
+  * [Is your application compatible with FIX 5.0 SP2?](#is-your-application-compatible-with-fix-50-sp2)
+  * [Is your application compatible with a QuickFix peer?](#is-your-application-compatible-with-a-quickfix-peer)
+
+
 ##Sending a fix message to your application
 The example below shows how to send fix messages to your application using fix4j-assert:
 

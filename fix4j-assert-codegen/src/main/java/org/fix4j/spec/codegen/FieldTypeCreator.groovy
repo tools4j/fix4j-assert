@@ -1,7 +1,4 @@
-package org.fix4j.test.codegen
-
-import groovy.text.GStringTemplateEngine
-
+package org.fix4j.spec.codegen
 /**
  * User: ben
  * Date: 26/08/2014

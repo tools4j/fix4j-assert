@@ -1,4 +1,4 @@
-package org.fix4j.test.codegen
+package org.fix4j.spec.codegen
 
 /**
  * User: ben

@@ -12,7 +12,6 @@ import java.util.List;
 public interface FieldAndGroupTypes extends PrettyPrintable, FieldTypeSource{
     List<MemberFieldType> getFieldTypes();
     List<GroupType> getGroupTypes();
-    MemberFieldType getFieldType(int tag);
     GroupType getGroupType(int tag);
     boolean containsChild(FieldType type);
     boolean containsRecursively(FieldType type);

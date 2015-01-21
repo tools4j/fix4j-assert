@@ -1,15 +1,15 @@
-package org.fix4j.test.codegen
+package org.fix4j.spec.codegen
 /**
  * User: ben
  * Date: 26/08/2014
  * Time: 5:59 AM
  */
-public class StandardTrailerCreator {
+public class StandardHeaderCreator {
 
-    protected static writeStandardTrailerJavaFile(final String packageName, final Collection trailerFields) {
-        def file = new File("StandardTrailer.java")
-        file.write(createStandardHeaderContent(packageName, trailerFields));
-        println "Written StandardTrailer.java to:" + file.absolutePath;
+    protected static writeStandardHeaderJavaFile(final String packageName, final Collection headerFields) {
+        def file = new File("StandardHeader.java")
+        file.write(createStandardHeaderContent(packageName, headerFields));
+        println "Written StandardHeader.java to:" + file.absolutePath;
     }
 
     private static String createStandardHeaderContent(final String packageName, final def fields) {
@@ -19,8 +19,8 @@ public class StandardTrailerCreator {
                 "import org.fix4j.test.fixspec.BaseFieldAndGroupTypes;\n" +
                 "import org.fix4j.test.fixspec.BaseGroupType;\n" +
                 "\n" +
-                "public class StandardTrailer extends BaseFieldAndGroupTypes {\n" +
-                "    public StandardTrailer(){\n" +
+                "public class StandardHeader extends BaseFieldAndGroupTypes {\n" +
+                "    public StandardHeader(){\n" +
                 "        super(\n");
         CompositeContentHelper.buildGroupChildrenForClass(fields, sb, "        ");
         sb.append("        );\n");

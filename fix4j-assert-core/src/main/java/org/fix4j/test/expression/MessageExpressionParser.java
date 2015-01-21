@@ -58,9 +58,9 @@ public class MessageExpressionParser {
     public Field parseField(final String fieldStr) {
         final String[] fixFieldParts = fieldStr.split(Consts.FIX_FIELD_EQUALS);
         if(fixFieldParts.length > 2) {
-            throw new IllegalArgumentException("It appears that a valid delimiter was not used to separate fix fields.  Valid separators are defined by the regular expression: '" + Consts.FIX_FIELD_DELIM + "'");
+            throw new IllegalArgumentException("Badly formatted field '" + fieldStr + "'.  More than one equals sign '" + Consts.FIX_FIELD_EQUALS + "' detected.  This could mean that there was more than one equals sign specified in the field, or, it could mean that two or more fields were not separated by a valid field delimiter.  Please ensure that fields are separated by text which matches regex: '" + Consts.FIX_FIELD_DELIM + "'");
         } else if(fixFieldParts.length < 2){
-            throw new IllegalArgumentException("Fix field expression does not match '<tag>" + Consts.FIX_FIELD_EQUALS + "<value>' format. Field: '" + fieldStr);
+            throw new IllegalArgumentException("Fix field expression does not match '<tag>" + Consts.FIX_FIELD_EQUALS + "<value>' format. Field: '" + fieldStr + "'");
         }
         final String fieldTypeStr = fixFieldParts[0];
         final FieldType fieldType = parseFieldType(fieldTypeStr);
@@ -127,7 +127,7 @@ public class MessageExpressionParser {
 
             final FieldType fieldType = fixSpecification.getFieldTypeByTag(Integer.parseInt(tagNumber));
             if(!fieldType.getName().equals(tagText)){
-                throw new IllegalArgumentException("Parsed field type:" + fieldTypeStr + " contains mismatched tag number to tag name.  Expected:" + fieldType);
+                throw new IllegalArgumentException("Parsed field '" + fieldTypeStr + "' contains mismatched tag number to tag name.  Expected: '" + fieldType + "'");
             } else {
                 return fieldType;
             }

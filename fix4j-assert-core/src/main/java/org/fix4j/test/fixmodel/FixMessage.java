@@ -17,7 +17,6 @@ public interface FixMessage extends FieldSource, PrettyPrintable {
     String toDelimitedMessageWithDescriptors();
     String toDelimitedMessage();
     FixSessionId getSessionId();
-    String getSenderAndTargetCompIds();
     Field getField(FieldType fieldType);
     Field getField(int tag);
     List<Field> getFields(FieldType fieldType);

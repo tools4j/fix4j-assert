@@ -1,8 +1,4 @@
-package org.fix4j.test.codegen;
-
-import java.io.File;
-import java.util.Collection;
-
+package org.fix4j.spec.codegen
 /**
  * User: ben
  * Date: 5/09/2014

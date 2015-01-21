@@ -102,10 +102,6 @@ public class Field implements FieldSource, Part, PrettyPrintable {
         return toString() + Consts.EOL;
     }
 
-    public boolean isOfType(final FieldType fieldType) {
-        return this.fieldType.equals(fieldType);
-    }
-
     public boolean isOfTag(final int tag) {
         return this.fieldType.getTag().getValue() == tag;
     }
@@ -113,12 +109,6 @@ public class Field implements FieldSource, Part, PrettyPrintable {
     public void assertValueEquals(final String value) {
         if(!value.equals(this.value)){
             throw new AssertionError("Actual value '" + this.value + "' does not equal expected value '" + value + "'");
-        }
-    }
-
-    public void assertValueContains(final String text) {
-        if(!this.value.contains(text)){
-            throw new AssertionError("Actual value '" + this.value + "' does not contain regex '" + value + "'");
         }
     }
 

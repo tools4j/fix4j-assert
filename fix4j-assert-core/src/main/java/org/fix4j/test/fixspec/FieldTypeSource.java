@@ -9,7 +9,7 @@ import java.util.Set;
  * Time: 8:54 PM
  */
 public interface FieldTypeSource {
-    Set<MemberFieldType> getAllFieldTypesRecursively();
+    Set<? extends FieldType> getAllFieldTypesRecursively();
     Map<Integer, MemberFieldType> getAllFieldTypesByTagRecursively();
     Set<GroupType> getAllGroupTypesRecursively();
     Map<Integer, GroupType> getAllGroupTypesByTagRecursively();

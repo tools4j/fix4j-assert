@@ -1,7 +1,9 @@
 package org.fix4j.test.fixmodel
 
+import org.fix4j.spec.fix50sp2.FieldTypes
 import org.fix4j.test.fixspec.FixSpecification
 import org.fix4j.spec.fix50sp2.FixSpec
+import org.fix4j.test.util.ExceptionUtils
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import spock.lang.Specification
@@ -13,27 +15,86 @@ import spock.lang.Specification
  */
 class BaseFixMessageTest extends Specification {
     private final static Logger LOGGER = LoggerFactory.getLogger(BaseFixMessageTest.class);
+    private final static MSG_STR =
+            "[MsgType]35=V[MARKETDATAREQUEST]|" +
+            "[MDReqID]262=AASDJKG790|" +
+            "[NoRelatedSym]146=3|" +
+                "[Symbol]55=GBP/USD|" +
+                "[SettlDate]64=SP|" +
+                "[Symbol]55=AUD/USD|" +
+                "[SettlDate]64=1W|" +
+                "[Symbol]55=USD/JPY|" +
+                "[SettlDate]64=1W|" +
+            "[NoMDEntryTypes]267=2|" +
+                "[MDEntryType]269=0[BID]|" +
+                "[MDEntryType]269=1[OFFER]|";
+
+    private final static FixSpecification SPEC = FixSpec.INSTANCE;
+    private final static FixMessage MSG = SPEC.parse(MSG_STR);
+
+    def "test equals"(){
+        given:
+        final FixMessage msg2 = SPEC.parse(MSG_STR);
+        final FixMessage msg3 = SPEC.parse(
+            "[MsgType]35=V[MARKETDATAREQUEST]|" +
+            "[MDReqID]262=AASDJKG790|" +
+            "[NoRelatedSym]146=3|" +
+                "[Symbol]55=GBP/USD|" +
+                "[SettlDate]64=SP|" +
+                "[Symbol]55=AUD/USD|" +
+                "[SettlDate]64=1W|" +
+                "[Symbol]55=USD/JPY|" +
+                "[SettlDate]64=2W|" + //<---This line is different.  2W instead of 1W
+            "[NoMDEntryTypes]267=2|" +
+                "[MDEntryType]269=0[BID]|" +
+                "[MDEntryType]269=1[OFFER]|");
+
+
+
+        expect:
+        assert MSG.equals(MSG)
+        assert MSG.equals(msg2)
+        assert !MSG.equals(msg3)
+    }
+
+
+    def "test getField"(){
+        expect:
+        assert MSG.getField(FieldTypes.MsgType) == new Field(FieldTypes.MsgType, "V");
+        assert MSG.getField(35) == new Field(FieldTypes.MsgType, "V");
+        assert MSG.getField("MsgType") == new Field(FieldTypes.MsgType, "V");
+    }
+
+    def "test getField not found"() {
+        expect:
+        assert MSG.getField(FieldTypes.CollAsgnReason) == null
+        assert MSG.getField(895) == null
+    }
+
+    def "test getField by reference, not found"(){
+        when:
+        MSG.getField("CollAsgnReason") == null
+
+        then:
+        final IllegalArgumentException exception = thrown()
+        ExceptionUtils.assertExceptionMessagesContain(exception, "Cannot find field with reference:CollAsgnReason")
+    }
+
+    def "test toDelimitedMessageWithDescriptors"() {
+        expect:
+        final String delimitedMessageWithDescriptors = "[MsgType]35=V[MARKETDATAREQUEST]|[MDReqID]262=AASDJKG790|[NoRelatedSym]146=3|[Symbol]55=GBP/USD|[SettlDate]64=SP|[Symbol]55=AUD/USD|[SettlDate]64=1W|[Symbol]55=USD/JPY|[SettlDate]64=1W|[NoMDEntryTypes]267=2|[MDEntryType]269=0[BID]|[MDEntryType]269=1[OFFER]|"
+        assert MSG.toString() == delimitedMessageWithDescriptors
+        assert MSG.toDelimitedMessageWithDescriptors() == delimitedMessageWithDescriptors
+    }
+
+    def "test toDelimitedMessage"() {
+        expect:
+        final String delimitedMessageWithDescriptors = "35=V|262=AASDJKG790|146=3|55=GBP/USD|64=SP|55=AUD/USD|64=1W|55=USD/JPY|64=1W|267=2|269=0|269=1|"
+        assert MSG.toDelimitedMessage() == delimitedMessageWithDescriptors
+    }
 
     def "test GetReferenceMap"() {
         given:
-        final FixSpecification fixSpecification = FixSpec.INSTANCE;
-        FixMessage msg = fixSpecification.parse(
-                "[MsgType]35=V[MARKETDATAREQUEST]|" +
-                "[MDReqID]262=AASDJKG790|" +
-                "[NoRelatedSym]146=3|" +
-                    "[Symbol]55=GBP/USD|" +
-                    "[SettlDate]64=SP|" +
-                    "[Symbol]55=AUD/USD|" +
-                    "[SettlDate]64=1W|" +
-                    "[Symbol]55=USD/JPY|" +
-                    "[SettlDate]64=1W|" +
-                "[NoMDEntryTypes]267=2|" +
-                    "[MDEntryType]269=0[BID]|" +
-                    "[MDEntryType]269=1[OFFER]|");
-
-
-        LOGGER.info msg.toPrettyString();
-
         Map<String, String> expectedMap = [
 
             "35":"V[MARKETDATAREQUEST]",
@@ -81,7 +142,7 @@ class BaseFixMessageTest extends Specification {
             "NoMDEntryTypes[1].MDEntryType":"1[OFFER]"];
 
         when:
-        Map<String,String> actualMap = msg.getFieldReferenceMap();
+        Map<String,String> actualMap = MSG.getFieldReferenceMap();
 
         and:
         final Map<String, String> inActualButNotInExpected = new LinkedHashMap<>();

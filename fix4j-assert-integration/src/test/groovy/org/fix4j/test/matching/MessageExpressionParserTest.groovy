@@ -6,6 +6,7 @@ import org.fix4j.test.fixmodel.Field
 import org.fix4j.test.fixspec.FixSpecification
 import org.fix4j.spec.fix50sp2.FieldTypes
 import org.fix4j.spec.fix50sp2.FixSpec
+import org.fix4j.test.util.ExceptionUtils
 import spock.lang.Specification
 
 /**
@@ -89,6 +90,15 @@ class MessageExpressionParserTest extends Specification {
 
     def "test ParseFieldType, just number, but for custom tag"() {
         expect: assert parser.parseFieldType("12345678") == FieldTypes.forCustomTag(12345678);
+    }
+
+    def "test ParseFieldType, mismatched tag number to tag name"() {
+        when:
+        parser.parseFieldType("[Blah]35")
+
+        then:
+        final IllegalArgumentException exception = thrown();
+        ExceptionUtils.assertExceptionMessagesContain(exception, "Parsed field '[Blah]35' contains mismatched tag number to tag name.  Expected: '[MsgType]35'");
     }
 
     //ParseFieldValue
@@ -183,5 +193,23 @@ class MessageExpressionParserTest extends Specification {
 
     def "test ParseField, MsgType=D"() {
         expect: assert parser.parseField("MsgType=D") == new Field(FieldTypes.MsgType, "D");
+    }
+
+    def "test ParseExpression, no equals in field"(){
+        when:
+        parser.parse("35=D|foo|bar")
+
+        then:
+        final IllegalArgumentException exception = thrown()
+        ExceptionUtils.assertExceptionMessagesContain(exception, "Fix field expression does not match '<tag>=<value>' format. Field: 'foo'");
+    }
+
+    def "test ParseExpression, too many equals in field"(){
+        when:
+        parser.parse("35=D|foo=bar=blah")
+
+        then:
+        final IllegalArgumentException exception = thrown()
+        ExceptionUtils.assertExceptionMessagesContain(exception, "Badly formatted field 'foo=bar=blah'.  More than one equals sign '=' detected.  This could mean that there was more than one equals sign specified in the field, or, it could mean that two or more fields were not separated by a valid field delimiter.  Please ensure that fields are separated by text which matches regex:");
     }
 }

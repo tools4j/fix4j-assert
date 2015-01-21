@@ -98,13 +98,6 @@ public class BaseFixMessage implements FixMessage {
     }
 
     @Override
-    public String getSenderAndTargetCompIds() {
-        final Field senderCompId = header.getField(SENDER_COMP_TAG);
-        final Field targetCompId = header.getField(TARGET_COMP_TAG);
-        return senderCompId.getValue() + "->" + targetCompId.getValue();
-    }
-
-    @Override
     public Field getField(final FieldType fieldType) {
         return getField(fieldType.getTag().getValue());
     }

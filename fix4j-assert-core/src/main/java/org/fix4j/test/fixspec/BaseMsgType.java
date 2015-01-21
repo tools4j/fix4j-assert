@@ -43,11 +43,6 @@ public class BaseMsgType implements MsgType {
     }
 
     @Override
-    public MemberFieldType getFieldType(final int tag) {
-        return fieldAndGroupTypes.getFieldType(tag);
-    }
-
-    @Override
     public GroupType getGroupType(final int tag) {
         return fieldAndGroupTypes.getGroupType(tag);
     }
@@ -107,7 +102,7 @@ public class BaseMsgType implements MsgType {
     }
 
     @Override
-    public Set<MemberFieldType> getAllFieldTypesRecursively() {
+    public Set<? extends FieldType> getAllFieldTypesRecursively() {
         return fieldAndGroupTypes.getAllFieldTypesRecursively();
     }
 

@@ -59,11 +59,6 @@ public class BaseFieldAndGroupTypes implements FieldAndGroupTypes {
     }
 
     @Override
-    public MemberFieldType getFieldType(final int tag) {
-        return getAllFieldTypesByTagRecursively().get(tag);
-    }
-
-    @Override
     public GroupType getGroupType(final int tag) {
         return getAllGroupTypesByTagRecursively().get(tag);
     }
@@ -86,16 +81,11 @@ public class BaseFieldAndGroupTypes implements FieldAndGroupTypes {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        for (final MemberFieldType fieldType : fieldTypes.values()) {
-            if(sb.length() > 0) sb.append(Consts.FIX_FIELD_DISPLAY_DELIM);
-            sb.append(fieldType);
-        }
-        for (final GroupType groupType : groupTypes.values()) {
-            if(sb.length() > 0) sb.append(Consts.FIX_FIELD_DISPLAY_DELIM);
-            sb.append(groupType).append(Consts.FIX_FIELD_DISPLAY_DELIM);
-        }
-        return "{" + sb.toString() + "}";
+        return "BaseFieldAndGroupTypes{" +
+                "groupTypes=" + groupTypes +
+                ", fieldTypes=" + fieldTypes +
+                ", fieldOrder=" + fieldOrder +
+                '}';
     }
 
     @Override
@@ -108,14 +98,14 @@ public class BaseFieldAndGroupTypes implements FieldAndGroupTypes {
             sb.append(fieldType.toPrettyString()).append(Consts.EOL);
         }
         for (final GroupType groupType : groupTypes.values()) {
-            sb.append(groupType.toPrettyString()).append(Consts.EOL);
+            sb.append(groupType.toPrettyString());
         }
         return sb.toString();
     }
 
     @Override
-    public Set<MemberFieldType> getAllFieldTypesRecursively() {
-        final Set<MemberFieldType> allFieldTypes = new LinkedHashSet<>(fieldTypes.values());
+    public Set<? extends FieldType> getAllFieldTypesRecursively() {
+        final Set<FieldType> allFieldTypes = new LinkedHashSet<FieldType>(fieldTypes.values());
         for (final GroupType groupType : groupTypes.values()) {
             allFieldTypes.addAll(groupType.getAllFieldTypesRecursively());
         }

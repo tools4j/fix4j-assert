@@ -98,16 +98,10 @@ public class BaseFieldsAndGroups implements FieldsAndGroups {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        for (final Field field : fields.values()) {
-            if(sb.length() > 0) sb.append(Consts.FIX_FIELD_DISPLAY_DELIM);
-            sb.append(field);
-        }
-        for (final Group group : groups.values()) {
-            if(sb.length() > 0) sb.append(Consts.FIX_FIELD_DISPLAY_DELIM);
-            sb.append(group).append(Consts.FIX_FIELD_DISPLAY_DELIM);
-        }
-        return "{" + sb.toString() + "}";
+        return "BaseFieldsAndGroups{" +
+                "groups=" + groups +
+                ", fields=" + fields +
+                '}';
     }
 
     @Override

@@ -91,8 +91,8 @@ public class BaseGroupType extends BaseFieldAndGroupTypes implements GroupType {
     }
 
     @Override
-    public Set<MemberFieldType> getAllFieldTypesRecursively() {
-        final Set<MemberFieldType> fieldTypes = new LinkedHashSet<>();
+    public Set<? extends FieldType> getAllFieldTypesRecursively() {
+        final Set<FieldType> fieldTypes = new LinkedHashSet<FieldType>();
         fieldTypes.add(this.noOfFieldType);
         fieldTypes.addAll(super.getAllFieldTypesRecursively());
         return fieldTypes;

@@ -26,12 +26,6 @@ public class BaseGroup implements Group {
         this.repeats = repeats;
     }
 
-    public BaseGroup(final GroupType groupType, final Field noOfField) {
-        this.groupType = groupType;
-        this.noOfField = noOfField;
-        repeats = new LinkedList<>();
-    }
-
     public Tag<Integer> getTag() {
         return noOfField.getTag();
     }
