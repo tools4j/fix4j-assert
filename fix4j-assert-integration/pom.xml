@@ -5,7 +5,7 @@
     <parent>
         <artifactId>fix4j-assert</artifactId>
         <groupId>org.fix4j</groupId>
-        <version>0.1</version>
+        <version>0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -25,17 +25,17 @@
         <dependency>
             <groupId>org.fix4j</groupId>
             <artifactId>fix4j-assert-core</artifactId>
-            <version>0.1</version>
+            <version>0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.fix4j</groupId>
             <artifactId>fix4j-assert-fixspec-50sp2</artifactId>
-            <version>0.1</version>
+            <version>0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.fix4j</groupId>
             <artifactId>fix4j-assert-testcommon</artifactId>
-            <version>0.1</version>
+            <version>0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>
