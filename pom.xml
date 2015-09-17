@@ -42,8 +42,8 @@
 
     <scm>
         <url>https://github.com/fix4j/fix4j-assert</url>
-        <connection>scm:git:git://github.com/fix4j/fix4j-assert/fix4j-assert.git</connection>
-        <developerConnection>scm:git:git@github.com:fix4j/fix4j-assert/fix4j-assert.git</developerConnection>
+        <connection>scm:git:git://github.com/fix4j/fix4j-assert.git</connection>
+        <developerConnection>scm:git:git@github.com:fix4j/fix4j-assert.git</developerConnection>
     </scm>
 
     <properties>
