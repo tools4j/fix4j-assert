@@ -16,13 +16,13 @@ class DateUtilsTest extends Specification {
 
         then:
         final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd-HH:mm:ssZ");
-        assert dateFormat.format(date) == "20070123-19:01:17" + getCurrentTimezoneOffset();
+        assert dateFormat.format(date) == "20070123-19:01:17" + getCurrentTimezoneOffsetAtDate(date);
     }
 
-    public static String getCurrentTimezoneOffset() {
+    public static String getCurrentTimezoneOffsetAtDate(final Date date) {
         TimeZone tz = TimeZone.getDefault();
         Calendar cal = GregorianCalendar.getInstance(tz);
-        double offsetInMillis = tz.getOffset(cal.getTimeInMillis());
+        double offsetInMillis = tz.getOffset(date.getTime());
         double offsetInMinutes = (offsetInMillis / 60000);
         double minutesRemainder = offsetInMinutes % 60.0
 

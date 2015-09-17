@@ -12,7 +12,7 @@
     <artifactId>fix4j-assert-core</artifactId>
 
     <build>
-        <!-- Mandatory plugins for using Spock, is configured via the pluginManagement tag in the parent pommvn  -->
+        <!-- Mandatory plugins for using Spock, is configured via the pluginManagement tag in the parent pom -->
         <plugins>
             <plugin>
                 <groupId>org.codehaus.gmaven</groupId>

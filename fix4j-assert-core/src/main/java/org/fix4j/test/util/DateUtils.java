@@ -24,6 +24,9 @@ public class DateUtils {
     public static final TimeZone UTC = TimeZone.getTimeZone("UTC");
 
     static{
+        /*
+        Add the various date and timestamp formats here that we wish to 'support'
+        */
         final List<String> timestampFormatStrings = new ArrayList<>();
         timestampFormatStrings.add("yyyyMMdd-HH:mm:ss");
 
