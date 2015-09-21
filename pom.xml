@@ -10,7 +10,6 @@
         <module>fix4j-assert-core</module>
         <module>fix4j-assert-quickfix</module>
         <module>fix4j-assert-acceptance</module>
-        <module>fix4j-assert-examples</module>
         <module>fix4j-assert-codegen</module>
         <module>fix4j-assert-fixspec-50sp2</module>
         <module>fix4j-assert-all</module>
