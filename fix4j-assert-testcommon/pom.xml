@@ -3,7 +3,7 @@
     <parent>
         <artifactId>fix4j-assert</artifactId>
         <groupId>org.fix4j</groupId>
-        <version>1.0</version>
+        <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
