@@ -41,12 +41,14 @@
         <url>https://github.com/fix4j/fix4j-assert</url>
         <connection>scm:git:git://github.com/fix4j/fix4j-assert.git</connection>
         <developerConnection>scm:git:git@github.com:fix4j/fix4j-assert.git</developerConnection>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
 
     <properties>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
     <distributionManagement>
@@ -162,7 +164,6 @@
                             <executions>
                                 <execution>
                                     <id>attach-sources</id>
-                                    <phase>verify</phase>
                                     <goals>
                                         <goal>jar-no-fork</goal>
                                     </goals>
@@ -176,12 +177,14 @@
                             <executions>
                                 <execution>
                                     <id>attach-javadocs</id>
-                                    <phase>verify</phase>
                                     <goals>
                                         <goal>jar</goal>
                                     </goals>
                                 </execution>
                             </executions>
+                            <configuration>
+                                <excludePackageNames>org.fix4j.spec.*</excludePackageNames>
+                            </configuration>
                         </plugin>
                         <plugin>
                             <groupId>org.apache.maven.plugins</groupId>
