@@ -18,6 +18,7 @@ public enum PropertyKeysAndDefaultValues implements Keyable<String> {
     DISPLAY_INCOMING_MESSAGE_FLAGS("fix4j.display.incoming.message.flags", "true"),
     FAST_FAIL_ON_TRIGGER_OF_INCOMING_MESSAGE_FLAG("fix4j.fast.fail.on.trigger.of.incoming.message.flag", "true"),
     FAST_FAIL_ON_TRIGGER_OF_OUTBOUND_MESSAGE_FLAG("fix4j.fast.fail.on.trigger.of.outbound.message.flag", "true"),
+    FIX_FIELD_DELIM("fix4j.fix.field.delim", "(\\||\\^A|\\u0001)"),
     DEFAULT_MESSAGES_TO_IGNORE("fix4j.default.messages.to.ignore", "35=0");
 
     private final String defaultValue;

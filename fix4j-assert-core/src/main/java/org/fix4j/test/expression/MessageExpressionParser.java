@@ -5,6 +5,8 @@ import org.fix4j.test.fixmodel.RegexMatchingField;
 import org.fix4j.test.fixspec.FieldType;
 import org.fix4j.test.fixmodel.PrettyStripper;
 import org.fix4j.test.fixspec.FixSpecification;
+import org.fix4j.test.properties.ApplicationProperties;
+import org.fix4j.test.properties.PropertyKeysAndDefaultValues;
 import org.fix4j.test.util.Consts;
 
 import java.util.ArrayList;
@@ -19,6 +21,9 @@ import java.util.regex.Pattern;
  */
 public class MessageExpressionParser {
     private final FixSpecification fixSpecification;
+    private final String fixFieldDelimiter;
+    private final PrettyStripper prettyStripper;
+
     public static final Pattern TAG_PATTERN_WITH_TEXT_THEN_NUMBER = Pattern.compile("\\[([^\\]]+)\\](\\d+)");
     public static final Pattern TAG_PATTERN_WITH_NUMBER_THEN_TEXT = Pattern.compile("(\\d+)\\[([^\\]]+)\\]");
     public static final Pattern TAG_PATTERN_WITH_JUST_NUMBER = Pattern.compile("(\\d+)");
@@ -27,14 +32,20 @@ public class MessageExpressionParser {
     public static final Pattern FIELD_VALUE_WITH_ENUM_THEN_DESC = Pattern.compile("(\\w+)\\[([^\\]]+)\\]");
 
     public MessageExpressionParser(final FixSpecification fixSpecification) {
+        this(fixSpecification, ApplicationProperties.Singleton.instance().getAsString(PropertyKeysAndDefaultValues.FIX_FIELD_DELIM));
+    }
+
+    public MessageExpressionParser(final FixSpecification fixSpecification, final String fixFieldDelimiter) {
         this.fixSpecification = fixSpecification;
+        this.fixFieldDelimiter = fixFieldDelimiter;
+        this.prettyStripper = new PrettyStripper();
     }
 
     public MessageExpression parse(final String expression){
         final List<Field> fixFields = new ArrayList<Field>();
-        final String strippedExpression = PrettyStripper.stripPrettiness(expression);
+        final String strippedExpression = prettyStripper.stripPrettiness(expression);
 
-        final String[] parts = strippedExpression.split(Consts.FIX_FIELD_DELIM);
+        final String[] parts = strippedExpression.split(fixFieldDelimiter);
         final List<String> partsList = new ArrayList<String>();
         for(String part: parts){
             part = part.trim();
@@ -58,7 +69,7 @@ public class MessageExpressionParser {
     public Field parseField(final String fieldStr) {
         final String[] fixFieldParts = fieldStr.split(Consts.FIX_FIELD_EQUALS);
         if(fixFieldParts.length > 2) {
-            throw new IllegalArgumentException("Badly formatted field '" + fieldStr + "'.  More than one equals sign '" + Consts.FIX_FIELD_EQUALS + "' detected.  This could mean that there was more than one equals sign specified in the field, or, it could mean that two or more fields were not separated by a valid field delimiter.  Please ensure that fields are separated by text which matches regex: '" + Consts.FIX_FIELD_DELIM + "'");
+            throw new IllegalArgumentException("Badly formatted field '" + fieldStr + "'.  More than one equals sign '" + Consts.FIX_FIELD_EQUALS + "' detected.  This could mean that there was more than one equals sign specified in the field, or, it could mean that two or more fields were not separated by a valid field delimiter.  Please ensure that fields are separated by text which matches regex: '" + fixFieldDelimiter + "'");
         } else if(fixFieldParts.length < 2){
             throw new IllegalArgumentException("Fix field expression does not match '<tag>" + Consts.FIX_FIELD_EQUALS + "<value>' format. Field: '" + fieldStr + "'");
         }

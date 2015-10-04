@@ -43,20 +43,21 @@ public abstract class AbstractContextFactory implements ContextFactory {
         this.fixSpecification = fixSpecification;
     }
 
-    protected abstract FixEngineSessionFactory createFixEngineSessionFactory(final FixSpecification fixSpecification, final ApplicationProperties properties);
+    protected abstract FixEngineSessionFactory createFixEngineSessionFactory(final FixSpecification fixSpecification);
 
     @Override
     public SessionContext createSessionContext(final FixSessionId fixSessionId, final FixConnectionMode fixConnectionMode, final Map<String, String> sessionProperties) {
         final ApplicationProperties properties = createApplicationProperties(sessionProperties != null? new MapPropertySource(sessionProperties, "SessionProperties"): null);
+        ApplicationProperties.Singleton.setInstance(properties);
         logProperties(fixSessionId, properties);
-        final FixEngineSessionFactory fixEngineSessionFactory = createFixEngineSessionFactory(fixSpecification, properties);
+        final FixEngineSessionFactory fixEngineSessionFactory = createFixEngineSessionFactory(fixSpecification);
         final BlockingPipe<FixMessage> inboundBlockingPipe = new BlockingPipe<>("fromThirdPartyFixEngine");
         final FixEngineSession fixEngineSession = fixEngineSessionFactory.createSession(fixSessionId, fixConnectionMode, inboundBlockingPipe);
         final InboundProcessors inboundProcessors = new InboundProcessors(inboundBlockingPipe, createInboundProcessors(properties));
         final OutboundProcessors outboundProcessors = new OutboundProcessors(fixEngineSession, createOutboundProcessors(properties));
         final SessionConnectors sessionConnectors = new SessionConnectors(inboundProcessors, outboundProcessors);
         final OnFailureReporters onFailReporters = new OnFailureReporters(inboundProcessors, outboundProcessors);
-        return new SessionContext(sessionConnectors, fixSessionId, onFailReporters, fixConnectionMode, fixEngineSession, fixSpecification, properties);
+        return new SessionContext(sessionConnectors, fixSessionId, onFailReporters, fixConnectionMode, fixEngineSession, fixSpecification);
     }
 
     private void logProperties(final FixSessionId fixSessionId, final ApplicationProperties properties) {

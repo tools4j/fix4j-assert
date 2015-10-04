@@ -18,7 +18,6 @@ public class CompositePropertyMap implements PropertySource, ApplicationProperti
 
     private CompositePropertyMap(Map<String, PropertyAndSource> properties, final String sourceName) {
         this.properties = Collections.unmodifiableMap(properties);
-
         this.sourceName = sourceName;
     }
 
@@ -84,7 +83,7 @@ public class CompositePropertyMap implements PropertySource, ApplicationProperti
     @Override
     public String getAsString(final String key) {
         if(!properties.containsKey(key)) return null;
-        else return properties.get(key).value;
+        else return properties.get(key).getValue();
     }
 
     @Override
@@ -97,11 +96,11 @@ public class CompositePropertyMap implements PropertySource, ApplicationProperti
     @Override
     public Boolean getAsBoolean(final String key) {
         if(!properties.containsKey(key)) return null;
-        final String value = properties.get(key).value;
+        final String value = properties.get(key).getValue();
         if(!(value.equalsIgnoreCase("true") || value.contentEquals("false"))){
             throw new IllegalArgumentException("Value does not equal 'true' or 'false'.  Value:" + value);
         }
-        return Boolean.valueOf(properties.get(key).value);
+        return Boolean.valueOf(properties.get(key).getValue());
     }
 
     @Override
@@ -114,7 +113,7 @@ public class CompositePropertyMap implements PropertySource, ApplicationProperti
     @Override
     public Integer getAsInt(final String key) {
         if(!properties.containsKey(key)) return null;
-        else return Integer.valueOf(properties.get(key).value);
+        else return Integer.valueOf(properties.get(key).getValue());
     }
 
     @Override
@@ -127,7 +126,7 @@ public class CompositePropertyMap implements PropertySource, ApplicationProperti
     @Override
     public Double getAsDouble(final String key) {
         if(!properties.containsKey(key)) return null;
-        else return Double.valueOf(properties.get(key).value);
+        else return Double.valueOf(properties.get(key).getValue());
     }
 
     @Override
@@ -140,7 +139,7 @@ public class CompositePropertyMap implements PropertySource, ApplicationProperti
     @Override
     public Long getAsLong(final String key) {
         if(!properties.containsKey(key)) return null;
-        else return Long.valueOf(properties.get(key).value);
+        else return Long.valueOf(properties.get(key).getValue());
     }
 
     @Override
@@ -159,7 +158,7 @@ public class CompositePropertyMap implements PropertySource, ApplicationProperti
     public Map<String, String> getProperties() {
         final Map<String, String> properties = new LinkedHashMap<>();
         for (final String key : this.properties.keySet()) {
-            properties.put(key, this.properties.get(key).value);
+            properties.put(key, this.properties.get(key).getValue());
         }
         return properties;
     }
@@ -187,7 +186,7 @@ public class CompositePropertyMap implements PropertySource, ApplicationProperti
             if(propertySource != null) {
                 for (final String key : propertySource.getProperties().keySet()) {
                     if (!this.properties.containsKey(key)) {
-                        this.properties.put(key, new PropertyAndSource(propertySource.getProperties().get(key), propertySource.getSourceName()));
+                        this.properties.put(key, new ImmutablePropertyAndSource(propertySource.getProperties().get(key), propertySource.getSourceName()));
                     }
                 }
             }
@@ -199,18 +198,4 @@ public class CompositePropertyMap implements PropertySource, ApplicationProperti
         }
     }
 
-    private static class PropertyAndSource {
-        public final String value;
-        public final String source;
-
-        public PropertyAndSource(final String value, final String source) {
-            this.value = value;
-            this.source = source;
-        }
-
-        @Override
-        public String toString() {
-            return value + " [" + source + "]";
-        }
-    }
 }

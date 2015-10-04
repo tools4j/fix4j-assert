@@ -8,6 +8,21 @@ import org.fix4j.test.util.Keyable;
  * Time: 10:32 AM
  */
 public interface ApplicationProperties {
+    public static class Singleton{
+        private static ApplicationProperties instance;
+
+        public static ApplicationProperties instance(){
+            if(instance == null) {
+                instance = new ApplicationPropertiesFactory().createApplicationProperties();
+            }
+            return instance;
+        }
+
+        public static void setInstance(final ApplicationProperties applicationProperties){
+            instance = applicationProperties;
+        }
+    }
+
     public String getAsString(final String key);
     public String getAsString(final String key, final String defaultValue);
 

@@ -3,6 +3,8 @@ package org.fix4j.test.expression
 import org.fix4j.spec.fix50sp2.FixSpec
 import org.fix4j.test.TestMessages
 import org.fix4j.test.fixmodel.FixMessage
+import org.fix4j.test.properties.ApplicationProperties
+import org.fix4j.test.properties.ApplicationPropertiesFactory
 import spock.lang.Specification
 
 /**

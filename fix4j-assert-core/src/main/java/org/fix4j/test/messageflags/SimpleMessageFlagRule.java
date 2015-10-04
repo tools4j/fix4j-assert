@@ -8,6 +8,7 @@ import org.fix4j.test.fixspec.FixSpecification;
 import org.fix4j.test.fixspec.MsgType;
 import org.fix4j.test.matching.matchers.FixMessageMatcher;
 import org.fix4j.test.matching.matchers.MsgTypeMatcher;
+import org.fix4j.test.properties.ApplicationProperties;
 
 /**
  * User: ben

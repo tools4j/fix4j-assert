@@ -3,6 +3,7 @@ package org.fix4j.test.fixmodel
 import org.fix4j.test.expression.MessageExpression
 import org.fix4j.test.expression.MessageExpressionParser
 import org.fix4j.spec.fix50sp2.FixSpec
+import org.fix4j.test.properties.PropertyKeysAndDefaultValues
 import spock.lang.Specification
 
 /**
@@ -11,9 +12,12 @@ import spock.lang.Specification
  * Time: 7:50 PM
  */
 class PrettyStripperTest extends Specification {
-
-
     public static final FixSpec FIXSPEC = FixSpec.INSTANCE
+    private PrettyStripper prettyStripper;
+
+    def setup(){
+        prettyStripper = new PrettyStripper();
+    }
 
     def "test strip group repeats which start with numbers"(){
         given:

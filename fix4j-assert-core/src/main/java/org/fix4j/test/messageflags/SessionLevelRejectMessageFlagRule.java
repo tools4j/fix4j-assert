@@ -5,6 +5,7 @@ import org.fix4j.test.fixmodel.Field;
 import org.fix4j.test.fixmodel.FixMessage;
 import org.fix4j.test.fixspec.FixSpecification;
 import org.fix4j.test.matching.matchers.FixMessageMatcher;
+import org.fix4j.test.properties.ApplicationProperties;
 import org.fix4j.test.util.Consts;
 
 /**

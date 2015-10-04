@@ -2,6 +2,7 @@ package org.fix4j.test.session;
 
 import org.fix4j.test.fixmodel.FixMessage;
 import org.fix4j.test.fixspec.FixSpecification;
+import org.fix4j.test.properties.ApplicationProperties;
 import org.fix4j.test.properties.PropertyKeysAndDefaultValues;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,7 +43,7 @@ public class BlockingSession implements TestClientSession {
         try {
             FixMessage message = null;
             while(message == null){
-                message = sessionContext.sessionConnectors.inboundSupplier.get(sessionContext.applicationProperties.getAsLong(PropertyKeysAndDefaultValues.DEFAULT_FIX_MSG_WAIT_TIMEOUT_MS.getKey()));
+                message = sessionContext.sessionConnectors.inboundSupplier.get(ApplicationProperties.Singleton.instance().getAsLong(PropertyKeysAndDefaultValues.DEFAULT_FIX_MSG_WAIT_TIMEOUT_MS.getKey()));
             }
             return message;
         } catch (final Failure failure) {

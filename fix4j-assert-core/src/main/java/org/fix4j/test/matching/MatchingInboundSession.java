@@ -27,11 +27,9 @@ public class MatchingInboundSession {
     private final static Logger LOGGER = LoggerFactory.getLogger(MatchingInboundSession.class);
     private final Supplier<FixMessage> messages;
     private final MessageExpressionParser matcherParser;
-    private final ApplicationProperties properties;
 
-    public MatchingInboundSession(final FixSpecification fixSpecification, final Supplier<FixMessage> messages, final ApplicationProperties properties) {
+    public MatchingInboundSession(final FixSpecification fixSpecification, final Supplier<FixMessage> messages) {
         this.messages = messages;
-        this.properties = properties;
         this.matcherParser = new MessageExpressionParser(fixSpecification);
     }
 
@@ -94,11 +92,11 @@ public class MatchingInboundSession {
     }
 
     private MatchActivity getMatchActivity(final MatchActivityMessageProcessor messageProcessor){
-        return new MatchActivity(messages, messageProcessor, properties);
+        return new MatchActivity(messages, messageProcessor);
     }
 
     public FixMessage getNextMessage() {
-        return messages.get(properties.getAsLong(PropertyKeysAndDefaultValues.DEFAULT_FIX_MSG_WAIT_TIMEOUT_MS.getKey()));
+        return messages.get(ApplicationProperties.Singleton.instance().getAsLong(PropertyKeysAndDefaultValues.DEFAULT_FIX_MSG_WAIT_TIMEOUT_MS.getKey()));
     }
 
     public FixMessage getNextMessage(final long waitTimeoutInMs) {

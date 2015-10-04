@@ -18,7 +18,7 @@ public class MatchingSession implements TestClientSession {
     private final SessionContext sessionContext;
 
     public MatchingSession(final SessionContext sessionContext) {
-        this.inboundSession = new MatchingInboundSession(sessionContext.fixSpecification, sessionContext.sessionConnectors.inboundSupplier, sessionContext.applicationProperties);
+        this.inboundSession = new MatchingInboundSession(sessionContext.fixSpecification, sessionContext.sessionConnectors.inboundSupplier);
         this.outboundSession = new SimpleOutboundSession(sessionContext.fixSpecification, sessionContext.sessionConnectors.outboundConsumer);
         this.sessionContext = sessionContext;
     }
@@ -137,9 +137,5 @@ public class MatchingSession implements TestClientSession {
     @Override
     public FixSessionId getSessionId() {
         return sessionContext.fixSessionId;
-    }
-
-    public ApplicationProperties getProperties(){
-        return sessionContext.applicationProperties;
     }
 }

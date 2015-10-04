@@ -6,6 +6,8 @@ import org.fix4j.test.fixmodel.Field
 import org.fix4j.test.fixspec.FixSpecification
 import org.fix4j.spec.fix50sp2.FieldTypes
 import org.fix4j.spec.fix50sp2.FixSpec
+import org.fix4j.test.properties.ApplicationProperties
+import org.fix4j.test.properties.ApplicationPropertiesFactory
 import org.fix4j.test.util.ExceptionUtils
 import spock.lang.Specification
 

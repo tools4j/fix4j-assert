@@ -17,16 +17,14 @@ public class SessionContext {
     public final FixConnectionMode fixConnectionMode;
     public final FixEngineSession fixEngineSession;
     public final FixSpecification fixSpecification;
-    public final ApplicationProperties applicationProperties;
 
-    public SessionContext(final SessionConnectors sessionConnectors, final FixSessionId fixSessionId, final OnFailureReporters onFailureReporters, final FixConnectionMode fixConnectionMode, final FixEngineSession fixEngineSession, final FixSpecification fixSpecification, final ApplicationProperties applicationProperties) {
+    public SessionContext(final SessionConnectors sessionConnectors, final FixSessionId fixSessionId, final OnFailureReporters onFailureReporters, final FixConnectionMode fixConnectionMode, final FixEngineSession fixEngineSession, final FixSpecification fixSpecification) {
         this.sessionConnectors = sessionConnectors;
         this.fixSessionId = fixSessionId;
         this.onFailureReporters = onFailureReporters;
         this.fixConnectionMode = fixConnectionMode;
         this.fixEngineSession = fixEngineSession;
         this.fixSpecification = fixSpecification;
-        this.applicationProperties = applicationProperties;
     }
 
     public Error enrichFailureWithAdditionalReports(final Failure failure) {

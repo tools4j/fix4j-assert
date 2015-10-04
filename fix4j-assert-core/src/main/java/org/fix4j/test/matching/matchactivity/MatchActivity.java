@@ -20,24 +20,21 @@ public class MatchActivity {
     private final static Logger LOGGER = LoggerFactory.getLogger(MatchActivity.class);
     private final Supplier<FixMessage> messages;
     private final MatchActivityMessageProcessor messageProcessor;
-    private final ApplicationProperties testProperties;
 
     public MatchActivity(
             final Supplier<FixMessage> messages,
-            final MatchActivityMessageProcessor messageProcessor,
-            final ApplicationProperties testProperties) {
+            final MatchActivityMessageProcessor messageProcessor) {
 
         this.messages = messages;
         this.messageProcessor = messageProcessor;
-        this.testProperties = testProperties;
     }
 
     public MatchActivityResult run() {
-        final RecentMessages discardedMessages = new RecentMessages(testProperties.getAsInt(PropertyKeysAndDefaultValues.SIZE_OF_DISCARDED_MESSAGES.getKey()));
+        final RecentMessages discardedMessages = new RecentMessages(ApplicationProperties.Singleton.instance().getAsInt(PropertyKeysAndDefaultValues.SIZE_OF_DISCARDED_MESSAGES.getKey()));
         final long timeStarted = DateUtils.now();
 
-        while((DateUtils.timeSince(timeStarted) < testProperties.getAsLong(PropertyKeysAndDefaultValues.DEFAULT_FIX_MSG_WAIT_TIMEOUT_MS.getKey()))){
-            long timeRemaining = testProperties.getAsLong(PropertyKeysAndDefaultValues.DEFAULT_FIX_MSG_WAIT_TIMEOUT_MS.getKey()) - DateUtils.timeSince(timeStarted);
+        while((DateUtils.timeSince(timeStarted) < ApplicationProperties.Singleton.instance().getAsLong(PropertyKeysAndDefaultValues.DEFAULT_FIX_MSG_WAIT_TIMEOUT_MS.getKey()))){
+            long timeRemaining = ApplicationProperties.Singleton.instance().getAsLong(PropertyKeysAndDefaultValues.DEFAULT_FIX_MSG_WAIT_TIMEOUT_MS.getKey()) - DateUtils.timeSince(timeStarted);
             final FixMessage message = messages.get(timeRemaining);
 
             if(message == null) {

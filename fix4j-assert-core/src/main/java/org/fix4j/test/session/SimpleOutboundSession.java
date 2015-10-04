@@ -5,6 +5,7 @@ import org.fix4j.test.fixspec.FixSpecification;
 import org.fix4j.test.expression.MessageExpression;
 import org.fix4j.test.expression.MessageExpressionParser;
 import org.fix4j.test.plumbing.Consumer;
+import org.fix4j.test.properties.ApplicationProperties;
 import org.fix4j.test.util.Consts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

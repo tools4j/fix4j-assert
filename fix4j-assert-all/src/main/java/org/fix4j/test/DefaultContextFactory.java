@@ -22,7 +22,7 @@ public class DefaultContextFactory extends AbstractContextFactory {
     }
 
     @Override
-    protected FixEngineSessionFactory createFixEngineSessionFactory(final FixSpecification fixSpecification, final ApplicationProperties applicationProperties) {
-        return new QuickFixTestSessionFactory(fixSpecification, applicationProperties);
+    protected FixEngineSessionFactory createFixEngineSessionFactory(final FixSpecification fixSpecification) {
+        return new QuickFixTestSessionFactory(fixSpecification);
     }
 }

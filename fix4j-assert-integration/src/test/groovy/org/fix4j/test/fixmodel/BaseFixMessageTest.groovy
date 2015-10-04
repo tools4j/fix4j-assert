@@ -3,6 +3,8 @@ package org.fix4j.test.fixmodel
 import org.fix4j.spec.fix50sp2.FieldTypes
 import org.fix4j.test.fixspec.FixSpecification
 import org.fix4j.spec.fix50sp2.FixSpec
+import org.fix4j.test.properties.ApplicationProperties
+import org.fix4j.test.properties.ApplicationPropertiesFactory
 import org.fix4j.test.util.ExceptionUtils
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -15,6 +17,7 @@ import spock.lang.Specification
  */
 class BaseFixMessageTest extends Specification {
     private final static Logger LOGGER = LoggerFactory.getLogger(BaseFixMessageTest.class);
+
     private final static MSG_STR =
             "[MsgType]35=V[MARKETDATAREQUEST]|" +
             "[MDReqID]262=AASDJKG790|" +
