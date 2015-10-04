@@ -5,7 +5,7 @@
     <groupId>org.fix4j</groupId>
     <artifactId>fix4j-assert</artifactId>
     <packaging>pom</packaging>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
     <modules>
         <module>fix4j-assert-core</module>
         <module>fix4j-assert-quickfix</module>
@@ -124,6 +124,28 @@
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>2.5</version>
+                    <configuration>
+                        <mavenExecutorId>forked-path</mavenExecutorId>
+                        <useReleaseProfile>false</useReleaseProfile>
+                        <arguments>-Psonatype-oss-release</arguments>
+                        <autoVersionSubmodules>true</autoVersionSubmodules>
+                        <!--<useReleaseProfile>false</useReleaseProfile>-->
+                        <!--<releaseProfiles>sonatype-oss-release</releaseProfiles>-->
+                        <!--<goals>deploy</goals>-->
+                        <!--<preparationGoals>javadoc:jar source:jar-no-fork</preparationGoals>-->
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+    <profiles><profile>
+        <id>sonatype-oss-release</id>
+        <build>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
                     <version>2.2.1</version>
                     <executions>
@@ -176,19 +198,8 @@
                         </execution>
                     </executions>
                 </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-release-plugin</artifactId>
-                    <version>2.5</version>
-                    <configuration>
-                        <autoVersionSubmodules>true</autoVersionSubmodules>
-                        <useReleaseProfile>false</useReleaseProfile>
-                        <releaseProfiles>release</releaseProfiles>
-                        <goals>deploy</goals>
-                        <preparationGoals>javadoc:jar source:jar-no-fork</preparationGoals>
-                    </configuration>
-                </plugin>
             </plugins>
-        </pluginManagement>
-    </build>
+        </build>
+    </profile>
+    </profiles>
 </project>
