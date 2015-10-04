@@ -129,7 +129,6 @@
                     <executions>
                         <execution>
                             <id>attach-sources</id>
-                            <phase>verify</phase>
                             <goals>
                                 <goal>jar-no-fork</goal>
                             </goals>
@@ -143,7 +142,6 @@
                     <executions>
                         <execution>
                             <id>attach-javadocs</id>
-                            <phase>verify</phase>
                             <goals>
                                 <goal>jar</goal>
                             </goals>
@@ -187,6 +185,7 @@
                         <useReleaseProfile>false</useReleaseProfile>
                         <releaseProfiles>release</releaseProfiles>
                         <goals>deploy</goals>
+                        <preparationGoals>javadoc:jar source:jar-no-fork</preparationGoals>
                     </configuration>
                 </plugin>
             </plugins>
