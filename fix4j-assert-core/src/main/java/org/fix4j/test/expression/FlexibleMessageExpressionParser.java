@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
  * Date: 2/09/2014
  * Time: 4:55 PM
  */
-public class MessageExpressionParser {
+public class FlexibleMessageExpressionParser {
     private final FixSpecification fixSpecification;
     private final String fixFieldDelimiter;
     private final PrettyStripper prettyStripper;
@@ -31,11 +31,11 @@ public class MessageExpressionParser {
     public static final Pattern FIELD_VALUE_WITH_DESC_THEN_ENUM = Pattern.compile("\\[([^\\]]+)\\](.+)");
     public static final Pattern FIELD_VALUE_WITH_ENUM_THEN_DESC = Pattern.compile("(\\w+)\\[([^\\]]+)\\]");
 
-    public MessageExpressionParser(final FixSpecification fixSpecification) {
+    public FlexibleMessageExpressionParser(final FixSpecification fixSpecification) {
         this(fixSpecification, ApplicationProperties.Singleton.instance().getAsString(PropertyKeysAndDefaultValues.FIX_FIELD_DELIM));
     }
 
-    public MessageExpressionParser(final FixSpecification fixSpecification, final String fixFieldDelimiter) {
+    public FlexibleMessageExpressionParser(final FixSpecification fixSpecification, final String fixFieldDelimiter) {
         this.fixSpecification = fixSpecification;
         this.fixFieldDelimiter = fixFieldDelimiter;
         this.prettyStripper = new PrettyStripper();
@@ -43,7 +43,7 @@ public class MessageExpressionParser {
 
     public MessageExpression parse(final String expression){
         final List<Field> fixFields = new ArrayList<Field>();
-        final String strippedExpression = prettyStripper.stripPrettiness(expression);
+        final String strippedExpression = PrettyStripper.stripPrettiness(expression);
 
         final String[] parts = strippedExpression.split(fixFieldDelimiter);
         final List<String> partsList = new ArrayList<String>();

@@ -1,6 +1,6 @@
 package org.fix4j.test.session;
 
-import org.fix4j.test.expression.MessageExpressionParser;
+import org.fix4j.test.expression.FlexibleMessageExpressionParser;
 import org.fix4j.test.fixmodel.FixMessage;
 import org.fix4j.test.fixspec.FixSpecification;
 import org.fix4j.test.integration.FixEngineSession;
@@ -33,7 +33,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
 public abstract class AbstractContextFactory implements ContextFactory {
     private final static Logger LOGGER = LoggerFactory.getLogger(AbstractContextFactory.class);
@@ -164,7 +163,7 @@ public abstract class AbstractContextFactory implements ContextFactory {
      * @param properties
      */
     protected FixMessageMatcher createMatcherForMessagesToIgnore(final FixSpecification fixSpecification, final ApplicationProperties properties) {
-        final MessageExpressionParser parser = new MessageExpressionParser(fixSpecification);
+        final FlexibleMessageExpressionParser parser = new FlexibleMessageExpressionParser(fixSpecification);
         return parser.parse(properties.getAsString(PropertyKeysAndDefaultValues.DEFAULT_MESSAGES_TO_IGNORE.getKey()));
     }
 

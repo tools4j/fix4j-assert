@@ -1,11 +1,10 @@
 package org.fix4j.test.messageflags;
 
-import org.fix4j.test.expression.MessageExpressionParser;
+import org.fix4j.test.expression.FlexibleMessageExpressionParser;
 import org.fix4j.test.fixmodel.Field;
 import org.fix4j.test.fixmodel.FixMessage;
 import org.fix4j.test.fixspec.FixSpecification;
 import org.fix4j.test.matching.matchers.FixMessageMatcher;
-import org.fix4j.test.properties.ApplicationProperties;
 import org.fix4j.test.util.Consts;
 
 /**
@@ -19,7 +18,7 @@ public class SessionLevelRejectMessageFlagRule implements MessageFlagRule {
 
     public SessionLevelRejectMessageFlagRule(final FixSpecification fixSpecification) {
         this.fixSpecification = fixSpecification;
-        final MessageExpressionParser messageExpressionParser = new MessageExpressionParser(fixSpecification);
+        final FlexibleMessageExpressionParser messageExpressionParser = new FlexibleMessageExpressionParser(fixSpecification);
         matcher = messageExpressionParser.parse("35=3");// "Session level reject
     }
 

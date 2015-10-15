@@ -1,6 +1,6 @@
 package org.fix4j.test.matching;
 
-import org.fix4j.test.expression.MessageExpressionParser;
+import org.fix4j.test.expression.FlexibleMessageExpressionParser;
 import org.fix4j.test.fixmodel.FixMessage;
 import org.fix4j.test.fixspec.FixSpecification;
 import org.fix4j.test.fixspec.MsgType;
@@ -26,11 +26,11 @@ import org.slf4j.LoggerFactory;
 public class MatchingInboundSession {
     private final static Logger LOGGER = LoggerFactory.getLogger(MatchingInboundSession.class);
     private final Supplier<FixMessage> messages;
-    private final MessageExpressionParser matcherParser;
+    private final FlexibleMessageExpressionParser matcherParser;
 
     public MatchingInboundSession(final FixSpecification fixSpecification, final Supplier<FixMessage> messages) {
         this.messages = messages;
-        this.matcherParser = new MessageExpressionParser(fixSpecification);
+        this.matcherParser = new FlexibleMessageExpressionParser(fixSpecification);
     }
 
     /**

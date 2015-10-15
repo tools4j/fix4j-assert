@@ -3,8 +3,6 @@ package org.fix4j.test.expression
 import org.fix4j.spec.fix50sp2.FixSpec
 import org.fix4j.test.TestMessages
 import org.fix4j.test.fixmodel.FixMessage
-import org.fix4j.test.properties.ApplicationProperties
-import org.fix4j.test.properties.ApplicationPropertiesFactory
 import spock.lang.Specification
 
 /**
@@ -25,7 +23,7 @@ class MessageExpressionMatcherTest extends Specification {
     }
 
     protected boolean matches(String matchingExpression, FixMessage fixMessage) {
-        MessageExpression expression = new MessageExpressionParser(FixSpec.INSTANCE).parse(matchingExpression);
+        MessageExpression expression = new FlexibleMessageExpressionParser(FixSpec.INSTANCE).parse(matchingExpression);
         return expression.getMatchResult(fixMessage).matches();
     }
 }

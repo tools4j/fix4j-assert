@@ -6,7 +6,7 @@ import org.fix4j.test.fixmodel.FixMessage
 import org.fix4j.test.fixspec.BaseGroupType
 import org.fix4j.test.fixspec.FixSpecification
 import org.fix4j.test.expression.MessageExpression
-import org.fix4j.test.expression.MessageExpressionParser
+import org.fix4j.test.expression.FlexibleMessageExpressionParser
 import org.fix4j.test.util.DateUtils
 import quickfix.Group
 import quickfix.Message
@@ -36,7 +36,7 @@ import spock.lang.Specification
  */
 class ToQuickFixMessageConverterTest extends Specification {
     private final FixSpecification fixSpecification = FixSpec.INSTANCE;
-    private final MessageExpressionParser parser = new MessageExpressionParser(fixSpecification);
+    private final FlexibleMessageExpressionParser parser = new FlexibleMessageExpressionParser(fixSpecification);
 
     def "Convert message with repeating group"(){
         given:

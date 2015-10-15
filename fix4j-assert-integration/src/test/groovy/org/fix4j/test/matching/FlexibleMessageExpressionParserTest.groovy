@@ -1,13 +1,11 @@
 package org.fix4j.test.matching
 
 import org.fix4j.test.expression.MessageExpression
-import org.fix4j.test.expression.MessageExpressionParser
+import org.fix4j.test.expression.FlexibleMessageExpressionParser
 import org.fix4j.test.fixmodel.Field
 import org.fix4j.test.fixspec.FixSpecification
 import org.fix4j.spec.fix50sp2.FieldTypes
 import org.fix4j.spec.fix50sp2.FixSpec
-import org.fix4j.test.properties.ApplicationProperties
-import org.fix4j.test.properties.ApplicationPropertiesFactory
 import org.fix4j.test.util.ExceptionUtils
 import spock.lang.Specification
 
@@ -16,9 +14,9 @@ import spock.lang.Specification
  * Date: 7/10/2014
  * Time: 5:51 AM
  */
-class MessageExpressionParserTest extends Specification {
+class FlexibleMessageExpressionParserTest extends Specification {
     private FixSpecification spec = FixSpec.INSTANCE;
-    private MessageExpressionParser parser = new MessageExpressionParser(spec);
+    private FlexibleMessageExpressionParser parser = new FlexibleMessageExpressionParser(spec);
 
     private final String MARKET_DATA_REQUEST =
             "[MsgType]35=V[MARKETDATAREQUEST]|" +

@@ -21,5 +21,6 @@ public interface FixSpecification {
     FieldType getFieldTypeByName(String fieldName);
     FieldType getMsgTypeFieldType();
     FixMessage parse(final String expression);
+    FixMessage parseRawFix(final String expression);
     MsgType getMsgTypeByName(String msgTypeName);
 }

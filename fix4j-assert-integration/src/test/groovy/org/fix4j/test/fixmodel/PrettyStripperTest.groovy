@@ -1,9 +1,8 @@
 package org.fix4j.test.fixmodel
 
 import org.fix4j.test.expression.MessageExpression
-import org.fix4j.test.expression.MessageExpressionParser
+import org.fix4j.test.expression.FlexibleMessageExpressionParser
 import org.fix4j.spec.fix50sp2.FixSpec
-import org.fix4j.test.properties.PropertyKeysAndDefaultValues
 import spock.lang.Specification
 
 /**
@@ -173,7 +172,7 @@ class PrettyStripperTest extends Specification {
 
         when:
         final rawFixExpression = PrettyStripper.stripPrettiness(prettyMessage);
-        final MessageExpression messageExpression = (new MessageExpressionParser(FIXSPEC)).parse(rawFixExpression);
+        final MessageExpression messageExpression = (new FlexibleMessageExpressionParser(FIXSPEC)).parse(rawFixExpression);
         final FixMessage fixMessage = messageExpression.asMessage(FIXSPEC);
         final String prettyMessageAfterBeingStrippedAndRebuilt = fixMessage.toPrettyString();
 

@@ -1,10 +1,7 @@
 package org.fix4j.test.fixmodel
 
-import org.fix4j.spec.fix50sp2.fieldtype.StatsType
-import org.fix4j.test.expression.MessageExpressionParser
+import org.fix4j.test.expression.FlexibleMessageExpressionParser
 import org.fix4j.spec.fix50sp2.FixSpec
-import org.fix4j.test.properties.ApplicationProperties
-import org.fix4j.test.properties.ApplicationPropertiesFactory
 import spock.lang.Specification
 
 /**
@@ -16,7 +13,7 @@ class BaseFixMessageBuilderTest extends Specification {
     def "test withFields flat message"() {
         given:
         final BaseFixMessageBuilder builder = new BaseFixMessageBuilder(FixSpec.INSTANCE);
-        final MessageExpressionParser parser = new MessageExpressionParser(FixSpec.INSTANCE);
+        final FlexibleMessageExpressionParser parser = new FlexibleMessageExpressionParser(FixSpec.INSTANCE);
 
         when:
         final Collection<Field> fields = parser.parse("35=D|38=1000|59=1|100=N|40=1|11=ORD10001|60=20070123-19:01:17|55=HPQ|54=1|21=2").toFields();
@@ -49,7 +46,7 @@ class BaseFixMessageBuilderTest extends Specification {
     def "test withFields with a group with repeats 1"() {
         given:
         final BaseFixMessageBuilder builder = new BaseFixMessageBuilder(FixSpec.INSTANCE);
-        final MessageExpressionParser parser = new MessageExpressionParser(FixSpec.INSTANCE);
+        final FlexibleMessageExpressionParser parser = new FlexibleMessageExpressionParser(FixSpec.INSTANCE);
 
         when:
         final Collection<Field> fields = parser.parse("|" +
@@ -119,7 +116,7 @@ class BaseFixMessageBuilderTest extends Specification {
     def "test withFields with a group with repeats 2"() {
         given:
         final BaseFixMessageBuilder builder = new BaseFixMessageBuilder(FixSpec.INSTANCE);
-        final MessageExpressionParser parser = new MessageExpressionParser(FixSpec.INSTANCE);
+        final FlexibleMessageExpressionParser parser = new FlexibleMessageExpressionParser(FixSpec.INSTANCE);
 
         when:
         final Collection<Field> fields = parser.parse("|" +
@@ -168,7 +165,7 @@ class BaseFixMessageBuilderTest extends Specification {
     def "test withFields with a group with repeats 3"() {
         given:
         final BaseFixMessageBuilder builder = new BaseFixMessageBuilder(FixSpec.INSTANCE);
-        final MessageExpressionParser parser = new MessageExpressionParser(FixSpec.INSTANCE);
+        final FlexibleMessageExpressionParser parser = new FlexibleMessageExpressionParser(FixSpec.INSTANCE);
 
         when:
         final Collection<Field> fields = parser.parse(
@@ -209,7 +206,7 @@ class BaseFixMessageBuilderTest extends Specification {
     def "test with two levels of repeats"() {
         given:
         final BaseFixMessageBuilder builder = new BaseFixMessageBuilder(FixSpec.INSTANCE);
-        final MessageExpressionParser parser = new MessageExpressionParser(FixSpec.INSTANCE);
+        final FlexibleMessageExpressionParser parser = new FlexibleMessageExpressionParser(FixSpec.INSTANCE);
 
         String messageStr =
                 "    [MsgType]35=X[MARKETDATAINCREMENTALREFRESH]\n" +

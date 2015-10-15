@@ -1,14 +1,13 @@
 package org.fix4j.test.messageflags;
 
 import org.fix4j.test.expression.MessageExpression;
-import org.fix4j.test.expression.MessageExpressionParser;
+import org.fix4j.test.expression.FlexibleMessageExpressionParser;
 import org.fix4j.test.fixmodel.FixMessage;
 import org.fix4j.test.fixspec.FieldType;
 import org.fix4j.test.fixspec.FixSpecification;
 import org.fix4j.test.fixspec.MsgType;
 import org.fix4j.test.matching.matchers.FixMessageMatcher;
 import org.fix4j.test.matching.matchers.MsgTypeMatcher;
-import org.fix4j.test.properties.ApplicationProperties;
 
 /**
  * User: ben
@@ -29,7 +28,7 @@ public class SimpleMessageFlagRule implements MessageFlagRule {
     }
 
     public SimpleMessageFlagRule(final FixSpecification fixSpecification, final String expression, final String alert) {
-        this(new MessageExpressionParser(fixSpecification).parse(expression), alert);
+        this(new FlexibleMessageExpressionParser(fixSpecification).parse(expression), alert);
     }
 
     @Override
