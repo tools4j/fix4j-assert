@@ -95,7 +95,7 @@ public class CustomFixEngine {
         //Here we wire in the additional processor
         final TestSessionHelper helper = new TestSessionHelper(new DefaultContextFactory(){
             @Override
-            protected FixEngineSessionFactory createFixEngineSessionFactory(final FixSpecification fixSpecification, final ApplicationProperties applicationProperties) {
+            protected FixEngineSessionFactory createFixEngineSessionFactory(final FixSpecification fixSpecification) {
                 return new FixEngineSessionFactory() {
                     @Override
                     public FixEngineSession createSession(final FixSessionId sessionId, final FixConnectionMode connectionMode, final Consumer<FixMessage> consumerToTestClient) {

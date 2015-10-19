@@ -3,8 +3,8 @@ package org.fix4j.test.examples.clients;
 import org.fix4j.spec.fix50sp2.FieldTypes;
 import org.fix4j.spec.fix50sp2.FixSpec;
 import org.fix4j.spec.fix50sp2.fieldtype.*;
+import org.fix4j.test.expression.FlexibleMessageExpressionParser;
 import org.fix4j.test.expression.MessageExpression;
-import org.fix4j.test.expression.MessageExpressionParser;
 import org.fix4j.test.fixmodel.Field;
 import org.fix4j.test.fixspec.FixSpecification;
 import org.junit.Test;
@@ -14,7 +14,7 @@ import org.junit.Test;
  */
 public class VariousMessageFormatsTest {
     private FixSpecification spec = FixSpec.INSTANCE;
-    private MessageExpressionParser parser = new MessageExpressionParser(spec);
+    private FlexibleMessageExpressionParser parser = new FlexibleMessageExpressionParser(spec);
 
     @Test
     public void testPrettyExpression() {
