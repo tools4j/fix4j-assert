@@ -89,6 +89,17 @@
         <pluginManagement>
             <plugins>
                 <plugin>
+                    <groupId>org.sonatype.plugins</groupId>
+                    <artifactId>nexus-staging-maven-plugin</artifactId>
+                    <version>1.6.3</version>
+                    <extensions>true</extensions>
+                    <configuration>
+                        <serverId>sonatype-nexus-staging</serverId>
+                        <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                        <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                    </configuration>
+                </plugin>
+                <plugin>
                     <groupId>org.codehaus.gmaven</groupId>
                     <artifactId>gmaven-plugin</artifactId>
                     <version>1.4</version>
@@ -127,14 +138,9 @@
                     <artifactId>maven-release-plugin</artifactId>
                     <version>2.5</version>
                     <configuration>
-                        <mavenExecutorId>forked-path</mavenExecutorId>
                         <useReleaseProfile>false</useReleaseProfile>
-                        <arguments>-Psonatype-oss-release</arguments>
-                        <autoVersionSubmodules>true</autoVersionSubmodules>
-                        <!--<useReleaseProfile>false</useReleaseProfile>-->
-                        <!--<releaseProfiles>sonatype-oss-release</releaseProfiles>-->
-                        <!--<goals>deploy</goals>-->
-                        <!--<preparationGoals>javadoc:jar source:jar-no-fork</preparationGoals>-->
+                        <releaseProfiles>sonatype-oss-release</releaseProfiles>
+                        <goals>deploy</goals>
                     </configuration>
                 </plugin>
             </plugins>
@@ -171,17 +177,6 @@
                     </executions>
                     <configuration>
                         <excludePackageNames>org.fix4j.spec.*</excludePackageNames>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.sonatype.plugins</groupId>
-                    <artifactId>nexus-staging-maven-plugin</artifactId>
-                    <version>1.6.3</version>
-                    <extensions>true</extensions>
-                    <configuration>
-                        <serverId>sonatype-nexus-staging</serverId>
-                        <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                        <autoReleaseAfterClose>true</autoReleaseAfterClose>
                     </configuration>
                 </plugin>
                 <plugin>
