@@ -47,7 +47,7 @@
     <distributionManagement>
         <repository>
             <id>bintray</id>
-            <url>https://bintray.com/benjwarner/maven/org.fix4j.fix4j-assert</url>
+            <url>https://bintray.com/benjwarner/maven/org.fix4j.fix4j-assert/;publish=1</url>
         </repository>
     </distributionManagement>
 
