@@ -12,7 +12,7 @@
 
     <groupId>org.fix4j</groupId>
     <artifactId>fix4j-assert-examples</artifactId>
-    <version>1.0</version>
+    <version>1.0-SNAPSHOT</version>
 
     <!--
     Have decided to try and use JUnit in the examples module, rather than spock.  For two reasons:

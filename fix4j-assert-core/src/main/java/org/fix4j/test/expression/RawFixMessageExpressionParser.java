@@ -22,7 +22,8 @@ import java.util.regex.Pattern;
 public class RawFixMessageExpressionParser {
     private final FixSpecification fixSpecification;
     private final String fixFieldDelimiter;
-    private final PrettyStripper prettyStripper;
+    public static final Pattern FIELD_TAG_AND_VALUE_PATTERN = Pattern.compile("(\\d+)\\" + Consts.FIX_FIELD_EQUALS + "(.*)\\s*");
+
 
     public RawFixMessageExpressionParser(final FixSpecification fixSpecification) {
         this(fixSpecification, ApplicationProperties.Singleton.instance().getAsString(PropertyKeysAndDefaultValues.FIX_FIELD_DELIM));
@@ -31,7 +32,6 @@ public class RawFixMessageExpressionParser {
     public RawFixMessageExpressionParser(final FixSpecification fixSpecification, final String fixFieldDelimiter) {
         this.fixSpecification = fixSpecification;
         this.fixFieldDelimiter = fixFieldDelimiter;
-        this.prettyStripper = new PrettyStripper();
     }
 
     public MessageExpression parse(final String expression) {
@@ -59,16 +59,33 @@ public class RawFixMessageExpressionParser {
         return new MessageExpression(fixFields);
     }
 
-    public Field parseField(final String fieldStr) {
-        final String[] fixFieldParts = fieldStr.split(Consts.FIX_FIELD_EQUALS);
-        if (fixFieldParts.length > 2) {
-            throw new IllegalArgumentException("Badly formatted field '" + fieldStr + "'.  More than one equals sign '" + Consts.FIX_FIELD_EQUALS + "' detected.  This could mean that there was more than one equals sign specified in the field, or, it could mean that two or more fields were not separated by a valid field delimiter.  Please ensure that fields are separated by text which matches regex: '" + fixFieldDelimiter + "'");
-        } else if (fixFieldParts.length < 2) {
-            throw new IllegalArgumentException("Fix field expression does not match '<tag>" + Consts.FIX_FIELD_EQUALS + "<value>' format. Field: '" + fieldStr + "'");
+    public Field parseField(String fieldStr) {
+        if(fieldStr == null){
+            throw new IllegalArgumentException("Null string not allowed for field");
         }
-        final String fieldTypeStr = fixFieldParts[0];
+        fieldStr = fieldStr.trim();
+        if(fieldStr.isEmpty()){
+            throw new IllegalArgumentException("Empty string not allowed for field");
+        } else if(fieldStr.startsWith(Consts.FIX_FIELD_EQUALS)){
+            throw new IllegalArgumentException("Field not allowed to start with equals sign '" + Consts.FIX_FIELD_EQUALS + "'");
+        } else if(!fieldStr.contains(Consts.FIX_FIELD_EQUALS)){
+            throw new IllegalArgumentException("Field expression must contain equals sign '" + Consts.FIX_FIELD_EQUALS + "'");
+        }
+
+        final Matcher matcher = FIELD_TAG_AND_VALUE_PATTERN.matcher(fieldStr);
+        final boolean matchesExpression = matcher.find();
+        if(!matchesExpression){
+            throw new IllegalArgumentException("Field str '" + fieldStr + " does not match expression '" + FIELD_TAG_AND_VALUE_PATTERN + "'");
+        }
+        final String fieldTypeStr = matcher.group(1);
         final FieldType fieldType = parseFieldType(fieldTypeStr);
-        final String fieldValue = fixFieldParts[1];
+
+        final String fieldValue;
+        if(matcher.groupCount() > 1){
+            fieldValue = matcher.group(2);
+        } else {
+            fieldValue = "";
+        }
         return new Field(fieldType, fieldValue);
     }
 

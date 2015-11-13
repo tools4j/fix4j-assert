@@ -22,7 +22,6 @@ import java.util.regex.Pattern;
 public class FlexibleMessageExpressionParser {
     private final FixSpecification fixSpecification;
     private final String fixFieldDelimiter;
-    private final PrettyStripper prettyStripper;
 
     public static final Pattern TAG_PATTERN_WITH_TEXT_THEN_NUMBER = Pattern.compile("\\[([^\\]]+)\\](\\d+)");
     public static final Pattern TAG_PATTERN_WITH_NUMBER_THEN_TEXT = Pattern.compile("(\\d+)\\[([^\\]]+)\\]");
@@ -38,7 +37,6 @@ public class FlexibleMessageExpressionParser {
     public FlexibleMessageExpressionParser(final FixSpecification fixSpecification, final String fixFieldDelimiter) {
         this.fixSpecification = fixSpecification;
         this.fixFieldDelimiter = fixFieldDelimiter;
-        this.prettyStripper = new PrettyStripper();
     }
 
     public MessageExpression parse(final String expression){

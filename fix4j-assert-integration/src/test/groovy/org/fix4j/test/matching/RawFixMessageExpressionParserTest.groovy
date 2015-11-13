@@ -19,7 +19,7 @@ class RawFixMessageExpressionParserTest extends Specification {
     private FixSpecification spec = FixSpec.INSTANCE;
     private RawFixMessageExpressionParser parser = new RawFixMessageExpressionParser(spec);
 
-    private final String MARKET_DATA_REQUEST = "35=V|262=AASDJKG790|263=0|264=20|267=2|269=0|269=1|146=3|55=GBP/USD|55=AUD/USD|55=USD/JPY|";
+    private final String MARKET_DATA_REQUEST = "35=V|262=AASDJKG790|263=0|264=20|267=2|269=0|269=1|146=3|55=GBP/USD|55=AUD/USD|55=USD/JPY|90001=|90002=blah=one,blah=two,blah=three,blah=four";
 
     //Parse field type
     def "test parse expression"() {
@@ -27,7 +27,7 @@ class RawFixMessageExpressionParserTest extends Specification {
         final MessageExpression expression = parser.parse(MARKET_DATA_REQUEST);
 
         then:
-        assert expression.getFieldExpressions().size() == 11;
+        assert expression.getFieldExpressions().size() == 13;
         assert expression.getFieldExpressions().get(0).equals(new Field(FieldTypes.MsgType, "V"))
         assert expression.getFieldExpressions().get(1).equals(new Field(FieldTypes.MDReqID, "AASDJKG790"))
         assert expression.getFieldExpressions().get(2).equals(new Field(FieldTypes.SubscriptionRequestType, "0"))
@@ -39,6 +39,8 @@ class RawFixMessageExpressionParserTest extends Specification {
         assert expression.getFieldExpressions().get(8).equals(new Field(FieldTypes.Symbol, "GBP/USD"))
         assert expression.getFieldExpressions().get(9).equals(new Field(FieldTypes.Symbol, "AUD/USD"))
         assert expression.getFieldExpressions().get(10).equals(new Field(FieldTypes.Symbol, "USD/JPY"))
+        assert expression.getFieldExpressions().get(11).equals(new Field(FieldTypes.forCustomTag(90001), ""));
+        assert expression.getFieldExpressions().get(12).equals(new Field(FieldTypes.forCustomTag(90002), "blah=one,blah=two,blah=three,blah=four"));
     }
 
     def "test toString"() {
@@ -46,7 +48,7 @@ class RawFixMessageExpressionParserTest extends Specification {
         final MessageExpression expression = parser.parse(MARKET_DATA_REQUEST);
 
         then:
-        assert expression.toString() == "[MsgType]35=V[MARKETDATAREQUEST]|[MDReqID]262=AASDJKG790|[SubscriptionRequestType]263=0[SNAPSHOT]|[MarketDepth]264=20|[NoMDEntryTypes]267=2|[MDEntryType]269=0[BID]|[MDEntryType]269=1[OFFER]|[NoRelatedSym]146=3|[Symbol]55=GBP/USD|[Symbol]55=AUD/USD|[Symbol]55=USD/JPY|";
+        assert expression.toString() == "[MsgType]35=V[MARKETDATAREQUEST]|[MDReqID]262=AASDJKG790|[SubscriptionRequestType]263=0[SNAPSHOT]|[MarketDepth]264=20|[NoMDEntryTypes]267=2|[MDEntryType]269=0[BID]|[MDEntryType]269=1[OFFER]|[NoRelatedSym]146=3|[Symbol]55=GBP/USD|[Symbol]55=AUD/USD|[Symbol]55=USD/JPY|[CUSTOM]90001=|[CUSTOM]90002=blah=one,blah=two,blah=three,blah=four|";
     }
 
     def "test ParseFieldType, tag type is not a number"() {
@@ -88,15 +90,14 @@ class RawFixMessageExpressionParserTest extends Specification {
 
         then:
         final IllegalArgumentException exception = thrown()
-        ExceptionUtils.assertExceptionMessagesContain(exception, "Fix field expression does not match '<tag>=<value>' format. Field: 'foo'");
+        ExceptionUtils.assertExceptionMessagesContain(exception, "Field expression must contain equals sign '='");
     }
 
-    def "test ParseExpression, too many equals in field"(){
-        when:
-        parser.parse("35=D|foo=bar=blah")
+    def "test ParseField, map embedded in tag value"(){
+        expect: parser.parseField("123456=one=valueOne,two=valueTwo") == new Field(FieldTypes.forCustomTag(123456), "one=valueOne,two=valueTwo");
+    }
 
-        then:
-        final IllegalArgumentException exception = thrown()
-        ExceptionUtils.assertExceptionMessagesContain(exception, "Badly formatted field 'foo=bar=blah'.  More than one equals sign '=' detected.  This could mean that there was more than one equals sign specified in the field, or, it could mean that two or more fields were not separated by a valid field delimiter.  Please ensure that fields are separated by text which matches regex:");
+    def "test ParseField, empty tag value"(){
+        expect: parser.parseField("123456=") == new Field(FieldTypes.forCustomTag(123456), "");
     }
 }
