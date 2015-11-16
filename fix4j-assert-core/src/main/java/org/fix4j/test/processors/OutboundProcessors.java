@@ -21,12 +21,6 @@ public class OutboundProcessors extends AbstractChainedConsumer<FixMessage> impl
         this.processors = new FixMessageProcessors(processors);
     }
 
-    @SafeVarargs
-    public OutboundProcessors(final Consumer<FixMessage> source, final Processor<FixMessage> ... processors) {
-        super(source);
-        this.processors = new FixMessageProcessors(processors);
-    }
-
     @Override
     public FixMessage process(final FixMessage entity) {
         return processors.process(entity);
