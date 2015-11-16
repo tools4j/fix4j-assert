@@ -10,7 +10,7 @@ import java.util.List;
  * Date: 25/08/2014
  * Time: 10:24 PM
  */
-public interface MsgType extends FieldAndGroupTypes, Type {
+public interface MsgType extends FieldAndGroupTypes, Type<String> {
     String getName();
     List<MemberFieldType> getFieldTypes();
     List<GroupType> getGroupTypes();

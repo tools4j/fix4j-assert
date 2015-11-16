@@ -34,7 +34,7 @@ public class BaseTag<T> implements Tag<T> {
     public boolean equals(final Object o) {
         if (this == o) return true;
         if (!(o instanceof Tag)) return false;
-        final Tag baseTag = (Tag) o;
+        final Tag<?> baseTag = (Tag<?>) o;
         if (!value.equals(baseTag.getValue())) return false;
         return true;
     }

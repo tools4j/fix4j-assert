@@ -45,12 +45,12 @@ public class BaseFieldType implements FieldType {
         this.fieldClass = FieldClass.STRING;
     }
 
-    public BaseFieldType(final String name, final int tag, final FieldClass fieldClass, final Class<? extends Enum> enumClass) {
+    public BaseFieldType(final String name, final int tag, final FieldClass fieldClass, final Class<? extends Enum<?>> enumClass) {
         if(!enumClass.isEnum()){
             throw new IllegalArgumentException("class must be an enum:" + enumClass);
         }
         final Map<String,String> enumValues = new LinkedHashMap<>();
-        for(final Enum enumValue: enumClass.getEnumConstants()){
+        for(final Enum<?> enumValue: enumClass.getEnumConstants()){
             if(!(enumValue instanceof FieldTypeValueEnum)){
                 throw new IllegalArgumentException("Enum must implement FieldTypeValueEnum:" + enumClass);
             }

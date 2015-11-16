@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
  * Date: 2/09/2014
  * Time: 4:51 PM
  */
-public class Field implements FieldSource, Part, PrettyPrintable {
+public class Field implements FieldSource, PrettyPrintable {
     private final FieldType fieldType;
     private final String value;
 
@@ -28,12 +28,10 @@ public class Field implements FieldSource, Part, PrettyPrintable {
         return value;
     }
 
-    @Override
     public Tag<Integer> getTag() {
         return fieldType.getTag();
     }
 
-    @Override
     public FieldType getType() {
         return fieldType;
     }
@@ -43,7 +41,7 @@ public class Field implements FieldSource, Part, PrettyPrintable {
         return fieldType;
     }
 
-    public boolean isOfTag(final Tag tag){
+    public boolean isOfTag(final Tag<?> tag){
         return this.fieldType.getTag().equals(tag);
     }
 

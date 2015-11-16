@@ -21,6 +21,7 @@ public class FixMessageProcessors implements Processor<FixMessage>, OnFailureRep
         this.processors = processors;
     }
 
+    @SafeVarargs
     public FixMessageProcessors(final Processor<FixMessage> ... processors) {
         this.processors = Arrays.asList(processors);
     }

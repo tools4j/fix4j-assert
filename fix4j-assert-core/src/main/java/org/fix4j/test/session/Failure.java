@@ -13,6 +13,7 @@ import java.util.List;
  * Time: 4:25 AM
  */
 public class Failure extends AssertionError {
+    private static final long serialVersionUID = -6098281437774175888L;
     private final FixMessage fixMessage;
 
     public Failure(final Report report, final FixMessage fixMessage) {

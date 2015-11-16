@@ -99,7 +99,7 @@ public class MessageExpression implements FixMessageMatcher {
         return new BaseMatchResult(matchesOverall, new CompositeReport(matchReports));
     }
 
-    private Field getAndRemoveFirstOccurrenceOf(final Tag tag, final List<Field> unusedExpectedFields) {
+    private Field getAndRemoveFirstOccurrenceOf(final Tag<?> tag, final List<Field> unusedExpectedFields) {
         Field found = null;
         for (final Field field : unusedExpectedFields) {
             if (field.isOfTag(tag)) {
