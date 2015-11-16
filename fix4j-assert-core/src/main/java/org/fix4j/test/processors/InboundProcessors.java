@@ -21,11 +21,6 @@ public class InboundProcessors extends AbstractChainedSupplier<FixMessage> imple
         this.processors = new FixMessageProcessors(processors);
     }
 
-    public InboundProcessors(final Supplier<FixMessage> source, final Processor<FixMessage> ... processors) {
-        super(source);
-        this.processors = new FixMessageProcessors(processors);
-    }
-
     @Override
     public FixMessage process(final FixMessage entity) {
         return processors.process(entity);
