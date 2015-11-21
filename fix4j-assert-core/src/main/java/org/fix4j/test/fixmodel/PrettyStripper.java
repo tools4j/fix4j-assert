@@ -37,6 +37,9 @@ public class PrettyStripper {
         //Strip group repeat prefixes (fields starting with digits then a dot
         str = str.replaceAll("(?m)" + fixDelim + "\\d+\\.\\s*", Consts.FIX_FIELD_DISPLAY_DELIM);
 
+        //Replace any remaining fix delims
+        str = str.replaceAll("(?m)" + fixDelim, Consts.FIX_FIELD_DISPLAY_DELIM);
+
         //Strip line feeds
         str = str.replaceAll("\\r", "");
 
@@ -46,8 +49,12 @@ public class PrettyStripper {
         //String empty lines
         str = str.replaceAll("\\n\\1+", "\\n");
 
-        //Finally replace all carriage returns with a delimiter
+        //Replace all carriage returns with a delimiter
         str = str.replaceAll("\\n", Consts.FIX_FIELD_DISPLAY_DELIM);
+
+        //Strip off delimiter at end of string if there is one
+        str = str.replaceAll("(?m)" + Consts.FIX_FIELD_DISPLAY_DELIM_REGEX + "$", "");
+
         return str;
     }
 }

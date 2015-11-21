@@ -196,7 +196,7 @@ class BaseFixMessageBuilderTest extends Specification {
                 "[NoRelatedSym]146=3|" +
                     "[Symbol]55=GBP/USD|" +
                     "[Symbol]55=AUD/USD|" +
-                    "[Symbol]55=USD/JPY|";
+                    "[Symbol]55=USD/JPY";
 
         assert fixMessage.toDelimitedMessageWithDescriptors() == expectedOutput;
     }

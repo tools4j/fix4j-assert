@@ -28,7 +28,7 @@ class MissingRequiredFieldMessageFlagRuleTest extends Specification {
                 "[Symbol]55=AUD/USD|" +
                 "[SettlDate]64=1W|" +
                 "[Symbol]55=USD/JPY|" +
-                "[SettlDate]64=1W|"
+                "[SettlDate]64=1W";
 
         final FixSpecification spec = FixSpec.INSTANCE
         BaseFixMessage fixMessage = spec.parse(msg)
@@ -47,7 +47,7 @@ class MissingRequiredFieldMessageFlagRuleTest extends Specification {
                 "[SubscriptionRequestType]263=0[SNAPSHOT]|" +
                 "[NoMDEntryTypes]267=2|" +
                     "[MDEntryType]269=0[BID]|" +
-                    "[MDEntryType]269=1[OFFER]|";
+                    "[MDEntryType]269=1[OFFER]";
 
         final FixSpecification spec = FixSpec.INSTANCE
         BaseFixMessage fixMessage = spec.parse(msg)
@@ -58,7 +58,7 @@ class MissingRequiredFieldMessageFlagRuleTest extends Specification {
         then:
         assert rule.isTriggered(fixMessage);
         assert rule.getMessageFlags(fixMessage).getReportAsString() ==
-                "[MsgType]35=V[MARKETDATAREQUEST]|[MDReqID]262=AASDJKG790|[SubscriptionRequestType]263=0[SNAPSHOT]|[NoMDEntryTypes]267=2|[MDEntryType]269=0[BID]|[MDEntryType]269=1[OFFER]|\n" +
+                "[MsgType]35=V[MARKETDATAREQUEST]|[MDReqID]262=AASDJKG790|[SubscriptionRequestType]263=0[SNAPSHOT]|[NoMDEntryTypes]267=2|[MDEntryType]269=0[BID]|[MDEntryType]269=1[OFFER]\n" +
                 "    1.   Required field not found: [MarketDepth]264\n" +
                 "    2.   Required group not found: [NoRelatedSym]146\n";
     }

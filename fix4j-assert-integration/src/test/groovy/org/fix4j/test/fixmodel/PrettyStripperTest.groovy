@@ -3,6 +3,10 @@ package org.fix4j.test.fixmodel
 import org.fix4j.test.expression.MessageExpression
 import org.fix4j.test.expression.FlexibleMessageExpressionParser
 import org.fix4j.spec.fix50sp2.FixSpec
+import org.fix4j.test.properties.ApplicationProperties
+import org.fix4j.test.properties.ApplicationPropertiesFactory
+import org.fix4j.test.properties.MapPropertySource
+import org.fix4j.test.properties.PropertyKeysAndDefaultValues
 import spock.lang.Specification
 
 /**
@@ -18,6 +22,11 @@ class PrettyStripperTest extends Specification {
         prettyStripper = new PrettyStripper();
     }
 
+    def cleanup(){
+        final String customDelimiter = PropertyKeysAndDefaultValues.FIX_FIELD_DELIM.defaultValue;
+        ApplicationProperties.Singleton.setInstance(new ApplicationPropertiesFactory().createApplicationProperties(new MapPropertySource([(PropertyKeysAndDefaultValues.FIX_FIELD_DELIM.getKey()): customDelimiter], "test.prefs")));
+    }
+
     def "test strip group repeats which start with numbers"(){
         given:
         final String prettyMessage =
@@ -27,7 +36,7 @@ class PrettyStripperTest extends Specification {
                 "       Second repeat field 2\n";
 
         expect:
-        PrettyStripper.stripPrettiness(prettyMessage) == "First repeat field 1|First repeat field 2|Second repeat field 1|Second repeat field 2|";
+        PrettyStripper.stripPrettiness(prettyMessage) == "First repeat field 1|First repeat field 2|Second repeat field 1|Second repeat field 2";
     }
 
     def "test strip spaces from start and end of string"(){
@@ -73,6 +82,97 @@ class PrettyStripperTest extends Specification {
                 "blah";
 
         expect:
+        PrettyStripper.stripPrettiness(prettyMessage) == "blah|blah|blah";
+    }
+
+    def "test strip group repeats which start with numbers, display delim not equal to fix delim"(){
+        setup:
+        final String customDelimiter = ";";
+        ApplicationProperties.Singleton.setInstance(new ApplicationPropertiesFactory().createApplicationProperties(new MapPropertySource([(PropertyKeysAndDefaultValues.FIX_FIELD_DELIM.getKey()): customDelimiter], "test.prefs")));
+
+        when:
+        final String prettyMessage =
+                "    1. First repeat field 1\n" +
+                "       First repeat field 2\n" +
+                "    2. Second repeat field 1\n" +
+                "       Second repeat field 2\n";
+
+        then:
+        PrettyStripper.stripPrettiness(prettyMessage) == "First repeat field 1|First repeat field 2|Second repeat field 1|Second repeat field 2";
+    }
+
+    def "test strip spaces from start and end of string, display delim not equal to fix delim"(){
+        setup:
+        final String customDelimiter = ";";
+        ApplicationProperties.Singleton.setInstance(new ApplicationPropertiesFactory().createApplicationProperties(new MapPropertySource([(PropertyKeysAndDefaultValues.FIX_FIELD_DELIM.getKey()): customDelimiter], "test.prefs")));
+
+        when:
+        final String prettyMessage =
+                "    blah\n" +
+                "    blah\n" +
+                "blah    ";
+
+        then:
+        PrettyStripper.stripPrettiness(prettyMessage) == "blah|blah|blah";
+    }
+
+
+    def "test strip string with delim at end of string, display delim not equal to fix delim"(){
+        setup:
+        final String customDelimiter = ";";
+        ApplicationProperties.Singleton.setInstance(new ApplicationPropertiesFactory().createApplicationProperties(new MapPropertySource([(PropertyKeysAndDefaultValues.FIX_FIELD_DELIM.getKey()): customDelimiter], "test.prefs")));
+
+        when:
+        final String prettyMessage = "    blah;blah;blah;    ";
+
+        then:
+        PrettyStripper.stripPrettiness(prettyMessage) == "blah|blah|blah";
+    }
+
+    def "test strip line feed characters, display delim not fix delim"(){
+        setup:
+        final String customDelimiter = ";";
+        ApplicationProperties.Singleton.setInstance(new ApplicationPropertiesFactory().createApplicationProperties(new MapPropertySource([(PropertyKeysAndDefaultValues.FIX_FIELD_DELIM.getKey()): customDelimiter], "test.prefs")));
+
+        when:
+        final String prettyMessage =
+                "blah\n\r" +
+                "blah";
+
+        then:
+        PrettyStripper.stripPrettiness(prettyMessage) == "blah|blah";
+    }
+
+    def "test strip lines with just whitespace, display delim not equal to fix delim"(){
+        setup:
+        final String customDelimiter = ";";
+        ApplicationProperties.Singleton.setInstance(new ApplicationPropertiesFactory().createApplicationProperties(new MapPropertySource([(PropertyKeysAndDefaultValues.FIX_FIELD_DELIM.getKey()): customDelimiter], "test.prefs")));
+
+        when:
+        final String prettyMessage =
+                "blah\n" +
+                "     \n" +
+                "blah";
+
+        then:
+        PrettyStripper.stripPrettiness(prettyMessage) == "blah|blah";
+    }
+
+    def "test strip empty lines, display delim not equal to fix delim"(){
+        setup:
+        final String customDelimiter = ";";
+        ApplicationProperties.Singleton.setInstance(new ApplicationPropertiesFactory().createApplicationProperties(new MapPropertySource([(PropertyKeysAndDefaultValues.FIX_FIELD_DELIM.getKey()): customDelimiter], "test.prefs")));
+
+        when:
+        final String prettyMessage =
+                "blah\n" +
+                        "\n" +
+                        "blah\n" +
+                        "\n" +
+                        "\n" +
+                        "blah";
+
+        then:
         PrettyStripper.stripPrettiness(prettyMessage) == "blah|blah|blah";
     }
 

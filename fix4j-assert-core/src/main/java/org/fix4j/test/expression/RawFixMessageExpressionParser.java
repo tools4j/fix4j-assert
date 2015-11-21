@@ -21,24 +21,17 @@ import java.util.regex.Pattern;
  */
 public class RawFixMessageExpressionParser {
     private final FixSpecification fixSpecification;
-    private final String fixFieldDelimiter;
     public static final Pattern FIELD_TAG_AND_VALUE_PATTERN = Pattern.compile("(\\d+)\\" + Consts.FIX_FIELD_EQUALS + "(.*)\\s*");
 
-
     public RawFixMessageExpressionParser(final FixSpecification fixSpecification) {
-        this(fixSpecification, ApplicationProperties.Singleton.instance().getAsString(PropertyKeysAndDefaultValues.FIX_FIELD_DELIM));
-    }
-
-    public RawFixMessageExpressionParser(final FixSpecification fixSpecification, final String fixFieldDelimiter) {
         this.fixSpecification = fixSpecification;
-        this.fixFieldDelimiter = fixFieldDelimiter;
     }
 
     public MessageExpression parse(final String expression) {
-        final List<Field> fixFields = new ArrayList<Field>();
+        final List<Field> fixFields = new ArrayList<>();
         final String strippedExpression = PrettyStripper.stripPrettiness(expression);
 
-        final String[] parts = strippedExpression.split(fixFieldDelimiter);
+        final String[] parts = strippedExpression.split(Consts.FIX_FIELD_DISPLAY_DELIM_REGEX);
         final List<String> partsList = new ArrayList<String>();
         for (String part : parts) {
             part = part.trim();

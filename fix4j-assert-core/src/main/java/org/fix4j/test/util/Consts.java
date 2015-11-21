@@ -12,6 +12,7 @@ public class Consts {
     public static final String INDENT = "    ";
     public static final String DOUBLE_INDENT = INDENT + INDENT;
     public static final String FIX_FIELD_DISPLAY_DELIM = "|";
+    public static final String FIX_FIELD_DISPLAY_DELIM_REGEX = "\\|";
     public static final String FIX_FIELD_EQUALS = "=";
     public static final int DEFAULT_NUM_OF_GROUP_REPEATS_IN_EXAMPLE_GENERATOR = 3;
 }

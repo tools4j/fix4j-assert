@@ -30,7 +30,7 @@ class BaseFixMessageTest extends Specification {
                 "[SettlDate]64=1W|" +
             "[NoMDEntryTypes]267=2|" +
                 "[MDEntryType]269=0[BID]|" +
-                "[MDEntryType]269=1[OFFER]|";
+                "[MDEntryType]269=1[OFFER]";
 
     private final static FixSpecification SPEC = FixSpec.INSTANCE;
     private final static FixMessage MSG = SPEC.parse(MSG_STR);
@@ -85,7 +85,7 @@ class BaseFixMessageTest extends Specification {
 
     def "test toDelimitedMessageWithDescriptors"() {
         expect:
-        final String delimitedMessageWithDescriptors = "[MsgType]35=V[MARKETDATAREQUEST]|[MDReqID]262=AASDJKG790|[NoRelatedSym]146=3|[Symbol]55=GBP/USD|[SettlDate]64=SP|[Symbol]55=AUD/USD|[SettlDate]64=1W|[Symbol]55=USD/JPY|[SettlDate]64=1W|[NoMDEntryTypes]267=2|[MDEntryType]269=0[BID]|[MDEntryType]269=1[OFFER]|"
+        final String delimitedMessageWithDescriptors = "[MsgType]35=V[MARKETDATAREQUEST]|[MDReqID]262=AASDJKG790|[NoRelatedSym]146=3|[Symbol]55=GBP/USD|[SettlDate]64=SP|[Symbol]55=AUD/USD|[SettlDate]64=1W|[Symbol]55=USD/JPY|[SettlDate]64=1W|[NoMDEntryTypes]267=2|[MDEntryType]269=0[BID]|[MDEntryType]269=1[OFFER]"
         assert MSG.toString() == delimitedMessageWithDescriptors
         assert MSG.toDelimitedMessageWithDescriptors() == delimitedMessageWithDescriptors
     }
