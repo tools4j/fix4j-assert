@@ -11,6 +11,7 @@ public class Consts {
     public static final String EOL = "\n";
     public static final String INDENT = "    ";
     public static final String DOUBLE_INDENT = INDENT + INDENT;
+    public static final String ASCII_1 = "\u0001";
     public static final String FIX_FIELD_DISPLAY_DELIM = "|";
     public static final String FIX_FIELD_DISPLAY_DELIM_REGEX = "\\|";
     public static final String FIX_FIELD_EQUALS = "=";

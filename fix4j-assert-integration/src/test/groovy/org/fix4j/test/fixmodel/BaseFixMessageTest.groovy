@@ -92,7 +92,7 @@ class BaseFixMessageTest extends Specification {
 
     def "test toDelimitedMessage"() {
         expect:
-        final String delimitedMessageWithDescriptors = "35=V|262=AASDJKG790|146=3|55=GBP/USD|64=SP|55=AUD/USD|64=1W|55=USD/JPY|64=1W|267=2|269=0|269=1|"
+        final String delimitedMessageWithDescriptors = "35=V|262=AASDJKG790|146=3|55=GBP/USD|64=SP|55=AUD/USD|64=1W|55=USD/JPY|64=1W|267=2|269=0|269=1"
         assert MSG.toDelimitedMessage() == delimitedMessageWithDescriptors
     }
 

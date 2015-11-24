@@ -30,11 +30,9 @@ public class BaseFixMessageBuilder {
         try {
             msgType = lookForMsgTypeInFields(fields);
             final PeekableIterator<Field> iterator = new PeekableIterator<>(fields);
-            FieldsAndGroupsBuilder currentBuilder = header;
 
             while (iterator.hasNext()) {
-                currentBuilder = getCurrentBuilder(currentBuilder, iterator.peek().getFieldType());
-                addNextFieldOrGroupToBuilder(currentBuilder, iterator);
+                addNextFieldOrGroupToBuilder(iterator);
             }
             return this;
         } catch(Exception e){
@@ -42,16 +40,26 @@ public class BaseFixMessageBuilder {
         }
     }
 
-    public FieldsAndGroupsBuilder getCurrentBuilder(FieldsAndGroupsBuilder currentBuilder, final FieldType nextFieldType) {
-        if (currentBuilder == header && !fixSpecification.getStandardHeaderType().containsRecursively(nextFieldType)) {
-            currentBuilder = body;
-        } else if (currentBuilder == body && fixSpecification.getStandardTrailerType().containsRecursively(nextFieldType)) {
-            currentBuilder = trailer;
+    public FieldsAndGroupsBuilder getCurrentBuilder(final FieldType nextFieldType) {
+        if (fixSpecification.getStandardHeaderType().containsRecursively(nextFieldType)) {
+            return header;
+        } else if (fixSpecification.getStandardTrailerType().containsRecursively(nextFieldType)) {
+            return trailer;
+        } else {
+            return body;
         }
-        return currentBuilder;
     }
 
-    public void addNextFieldOrGroupToBuilder(final FieldsAndGroupsBuilder currentBuilder, final PeekableIterator<Field> iterator) {
+    public void addNextFieldOrGroupToBuilder(final PeekableIterator<Field> iterator) {
+        final FieldsAndGroupsBuilder currentBuilder = getCurrentBuilder(iterator.peek().getFieldType());
+        if (iterator.peek().getFieldType().isNumInGroup()) {
+            currentBuilder.withGroup(buildGroup(iterator));
+        } else {
+            currentBuilder.withField(iterator.next());
+        }
+    }
+
+    public void addNextGroupMemberToBuilder(final FieldsAndGroupsBuilder currentBuilder, final PeekableIterator<Field> iterator) {
         if (iterator.peek().getFieldType().isNumInGroup()) {
             currentBuilder.withGroup(buildGroup(iterator));
         } else {
@@ -103,7 +111,7 @@ public class BaseFixMessageBuilder {
               && groupType.containsChild(iterator.peek().getFieldType())){
 
             //Then add the field or group
-            addNextFieldOrGroupToBuilder(groupRepeatBuilder, iterator);
+            addNextGroupMemberToBuilder(groupRepeatBuilder, iterator);
         }
         return groupRepeatBuilder.build();
     }

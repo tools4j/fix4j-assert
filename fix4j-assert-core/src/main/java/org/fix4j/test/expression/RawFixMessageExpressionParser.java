@@ -31,7 +31,7 @@ public class RawFixMessageExpressionParser {
         final List<Field> fixFields = new ArrayList<>();
         final String strippedExpression = PrettyStripper.stripPrettiness(expression);
 
-        final String[] parts = strippedExpression.split(Consts.FIX_FIELD_DISPLAY_DELIM_REGEX);
+        final String[] parts = strippedExpression.split(Consts.ASCII_1);
         final List<String> partsList = new ArrayList<String>();
         for (String part : parts) {
             part = part.trim();

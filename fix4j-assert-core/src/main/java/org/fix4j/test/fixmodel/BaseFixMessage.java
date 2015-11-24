@@ -86,7 +86,10 @@ public class BaseFixMessage implements FixMessage {
     public String toDelimitedMessage() {
         final StringBuilder sb = new StringBuilder();
         for (final Field field : allFields) {
-            sb.append(field.toStringWithRawValues()).append(Consts.FIX_FIELD_DISPLAY_DELIM);
+            if(sb.length() > 0){
+                sb.append(Consts.FIX_FIELD_DISPLAY_DELIM);
+            }
+            sb.append(field.toStringWithRawValues());
         }
         return sb.toString();
     }

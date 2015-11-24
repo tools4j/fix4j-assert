@@ -36,7 +36,7 @@ class PrettyStripperTest extends Specification {
                 "       Second repeat field 2\n";
 
         expect:
-        PrettyStripper.stripPrettiness(prettyMessage) == "First repeat field 1|First repeat field 2|Second repeat field 1|Second repeat field 2";
+        PrettyStripper.stripPrettiness(prettyMessage) == "First repeat field 1\u0001First repeat field 2\u0001Second repeat field 1\u0001Second repeat field 2";
     }
 
     def "test strip spaces from start and end of string"(){
@@ -47,7 +47,7 @@ class PrettyStripperTest extends Specification {
                 "blah    ";
 
         expect:
-        PrettyStripper.stripPrettiness(prettyMessage) == "blah|blah|blah";
+        PrettyStripper.stripPrettiness(prettyMessage) == "blah\u0001blah\u0001blah";
     }
 
     def "test strip line feed characters"(){
@@ -57,7 +57,7 @@ class PrettyStripperTest extends Specification {
                 "blah";
 
         expect:
-        PrettyStripper.stripPrettiness(prettyMessage) == "blah|blah";
+        PrettyStripper.stripPrettiness(prettyMessage) == "blah\u0001blah";
     }
 
     def "test strip lines with just whitespace"(){
@@ -68,7 +68,7 @@ class PrettyStripperTest extends Specification {
                 "blah";
 
         expect:
-        PrettyStripper.stripPrettiness(prettyMessage) == "blah|blah";
+        PrettyStripper.stripPrettiness(prettyMessage) == "blah\u0001blah";
     }
 
     def "test strip empty lines"(){
@@ -82,7 +82,7 @@ class PrettyStripperTest extends Specification {
                 "blah";
 
         expect:
-        PrettyStripper.stripPrettiness(prettyMessage) == "blah|blah|blah";
+        PrettyStripper.stripPrettiness(prettyMessage) == "blah\u0001blah\u0001blah";
     }
 
     def "test strip group repeats which start with numbers, display delim not equal to fix delim"(){
@@ -98,7 +98,7 @@ class PrettyStripperTest extends Specification {
                 "       Second repeat field 2\n";
 
         then:
-        PrettyStripper.stripPrettiness(prettyMessage) == "First repeat field 1|First repeat field 2|Second repeat field 1|Second repeat field 2";
+        PrettyStripper.stripPrettiness(prettyMessage) == "First repeat field 1\u0001First repeat field 2\u0001Second repeat field 1\u0001Second repeat field 2";
     }
 
     def "test strip spaces from start and end of string, display delim not equal to fix delim"(){
@@ -113,7 +113,7 @@ class PrettyStripperTest extends Specification {
                 "blah    ";
 
         then:
-        PrettyStripper.stripPrettiness(prettyMessage) == "blah|blah|blah";
+        PrettyStripper.stripPrettiness(prettyMessage) == "blah\u0001blah\u0001blah";
     }
 
 
@@ -126,7 +126,7 @@ class PrettyStripperTest extends Specification {
         final String prettyMessage = "    blah;blah;blah;    ";
 
         then:
-        PrettyStripper.stripPrettiness(prettyMessage) == "blah|blah|blah";
+        PrettyStripper.stripPrettiness(prettyMessage) == "blah\u0001blah\u0001blah";
     }
 
     def "test strip line feed characters, display delim not fix delim"(){
@@ -140,7 +140,7 @@ class PrettyStripperTest extends Specification {
                 "blah";
 
         then:
-        PrettyStripper.stripPrettiness(prettyMessage) == "blah|blah";
+        PrettyStripper.stripPrettiness(prettyMessage) == "blah\u0001blah";
     }
 
     def "test strip lines with just whitespace, display delim not equal to fix delim"(){
@@ -155,7 +155,7 @@ class PrettyStripperTest extends Specification {
                 "blah";
 
         then:
-        PrettyStripper.stripPrettiness(prettyMessage) == "blah|blah";
+        PrettyStripper.stripPrettiness(prettyMessage) == "blah\u0001blah";
     }
 
     def "test strip empty lines, display delim not equal to fix delim"(){
@@ -173,7 +173,7 @@ class PrettyStripperTest extends Specification {
                         "blah";
 
         then:
-        PrettyStripper.stripPrettiness(prettyMessage) == "blah|blah|blah";
+        PrettyStripper.stripPrettiness(prettyMessage) == "blah\u0001blah\u0001blah";
     }
 
     def "test StripPrettiness from real message"() {

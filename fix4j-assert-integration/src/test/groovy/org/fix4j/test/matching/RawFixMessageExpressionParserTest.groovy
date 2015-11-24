@@ -69,6 +69,39 @@ class RawFixMessageExpressionParserTest extends Specification {
         assert expression.getFieldExpressions().get(3).equals(new Field(FieldTypes.MarketDepth, "20"))
     }
 
+    def "test parse expression with header field at the end of the message"() {
+        given:
+        final RawFixMessageExpressionParser parser = new RawFixMessageExpressionParser(spec);
+
+        when:
+        final String mdsWithSpaces = "5487=ABC|2345=CDE|35=D";
+        final MessageExpression expression = parser.parse(mdsWithSpaces);
+
+        then:
+        assert expression.getFieldExpressions().size() == 3;
+        assert expression.getFieldExpressions().get(0).equals(new Field(FieldTypes.forCustomTag(5487), "ABC"))
+        assert expression.getFieldExpressions().get(1).equals(new Field(FieldTypes.forCustomTag(2345), "CDE"))
+        assert expression.getFieldExpressions().get(2).equals(new Field(FieldTypes.MsgType, "D"))
+    }
+
+    def "test parse expression with header field at the end of the message, with ; as delimiter"() {
+        given:
+        final String customDelimiter = ";";
+        ApplicationProperties.Singleton.setInstance(new ApplicationPropertiesFactory().createApplicationProperties(new MapPropertySource([(PropertyKeysAndDefaultValues.FIX_FIELD_DELIM.getKey()): customDelimiter], "test.prefs")));
+        final RawFixMessageExpressionParser parser = new RawFixMessageExpressionParser(spec);
+
+        when:
+        final String mdsWithSpaces = "5487=ABC;2345=CDE;35=D;";
+        final MessageExpression expression = parser.parse(mdsWithSpaces);
+
+        then:
+        assert expression.getFieldExpressions().size() == 3;
+        assert expression.getFieldExpressions().get(0).equals(new Field(FieldTypes.forCustomTag(5487), "ABC"))
+        assert expression.getFieldExpressions().get(1).equals(new Field(FieldTypes.forCustomTag(2345), "CDE"))
+        assert expression.getFieldExpressions().get(2).equals(new Field(FieldTypes.MsgType, "D"))
+    }
+
+
     def "test parse expression with spaces before and after delimiter, with ; as delimiter"() {
         given:
         final String customDelimiter = ";";

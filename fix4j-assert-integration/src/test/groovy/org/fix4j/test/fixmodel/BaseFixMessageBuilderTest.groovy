@@ -2,6 +2,7 @@ package org.fix4j.test.fixmodel
 
 import org.fix4j.test.expression.FlexibleMessageExpressionParser
 import org.fix4j.spec.fix50sp2.FixSpec
+import org.fix4j.test.util.Consts
 import spock.lang.Specification
 
 /**
@@ -242,6 +243,6 @@ class BaseFixMessageBuilderTest extends Specification {
         then:
         final FixMessage fixMessage = builder.build();
         println fixMessage.toPrettyString();
-        assert fixMessage.toDelimitedMessageWithDescriptors() == PrettyStripper.stripPrettiness(messageStr);
+        assert fixMessage.toDelimitedMessageWithDescriptors() == PrettyStripper.stripPrettiness(messageStr).replaceAll(Consts.ASCII_1, Consts.FIX_FIELD_DISPLAY_DELIM);
     }
 }

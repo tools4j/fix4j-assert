@@ -23,22 +23,22 @@ public class PrettyStripper {
         str = str.replaceAll("(?m)^\\s+", "");
 
         //Strip space from start of field after delimiter
-        str = str.replaceAll("(?m)" + fixDelim + "\\s+", Consts.FIX_FIELD_DISPLAY_DELIM);
+        str = str.replaceAll("(?m)" + fixDelim + "\\s+", Consts.ASCII_1);
 
         //Strip space from end of string (not including carriage returns)
         str = str.replaceAll("(?m)[\\t ]+$", "");
 
         //Strip space from end of field up to next delimiter
-        str = str.replaceAll("(?m)[\\t ]+" + fixDelim, Consts.FIX_FIELD_DISPLAY_DELIM);
+        str = str.replaceAll("(?m)[\\t ]+" + fixDelim, Consts.ASCII_1);
 
         //Strip group repeat prefixes (lines starting with digits then a dot
         str = str.replaceAll("(?m)^\\d+\\.\\s*", "");
 
         //Strip group repeat prefixes (fields starting with digits then a dot
-        str = str.replaceAll("(?m)" + fixDelim + "\\d+\\.\\s*", Consts.FIX_FIELD_DISPLAY_DELIM);
+        str = str.replaceAll("(?m)" + fixDelim + "\\d+\\.\\s*", Consts.ASCII_1);
 
         //Replace any remaining fix delims
-        str = str.replaceAll("(?m)" + fixDelim, Consts.FIX_FIELD_DISPLAY_DELIM);
+        str = str.replaceAll("(?m)" + fixDelim, Consts.ASCII_1);
 
         //Strip line feeds
         str = str.replaceAll("\\r", "");
@@ -50,10 +50,10 @@ public class PrettyStripper {
         str = str.replaceAll("\\n\\1+", "\\n");
 
         //Replace all carriage returns with a delimiter
-        str = str.replaceAll("\\n", Consts.FIX_FIELD_DISPLAY_DELIM);
+        str = str.replaceAll("\\n", Consts.ASCII_1);
 
         //Strip off delimiter at end of string if there is one
-        str = str.replaceAll("(?m)" + Consts.FIX_FIELD_DISPLAY_DELIM_REGEX + "$", "");
+        str = str.replaceAll("(?m)" + Consts.ASCII_1 + "$", "");
 
         return str;
     }

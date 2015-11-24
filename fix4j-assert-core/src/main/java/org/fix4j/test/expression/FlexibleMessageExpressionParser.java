@@ -43,7 +43,7 @@ public class FlexibleMessageExpressionParser {
         final List<Field> fixFields = new ArrayList<Field>();
         final String strippedExpression = PrettyStripper.stripPrettiness(expression);
 
-        final String[] parts = strippedExpression.split(fixFieldDelimiter);
+        final String[] parts = strippedExpression.split(Consts.ASCII_1);
         final List<String> partsList = new ArrayList<String>();
         for(String part: parts){
             part = part.trim();
