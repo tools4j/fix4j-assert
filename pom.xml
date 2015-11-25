@@ -101,7 +101,7 @@
                             </execution>
                         </executions>
                         <configuration>
-                            <excludePackageNames>org.fix4j.spec.*</excludePackageNames>
+                            <excludePackageNames>org.fix4j.spec.fix50sp2.fieldtype.*</excludePackageNames>
                         </configuration>
                     </plugin>
                 </plugins>
