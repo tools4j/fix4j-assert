@@ -19,7 +19,7 @@ Table of Contents
   * [Is your application compatible with a QuickFix peer?](#is-your-application-compatible-with-a-quickfix-peer)
 
 
-##Using fix4j in your project
+##Using fix4j-assert in your project
 via maven:
 ```
         <dependency>
