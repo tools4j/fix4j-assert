@@ -7,6 +7,7 @@ Contact: [fix4j.assert@gmail.com](mailto:fix4j.assert@gmail.com)
 
 Table of Contents
 =================
+* [Using fix4j-assert in your project](#using-fix4j-assert-in-your-project)
 * [Sending a fix message to your application](#sending-a-fix-message-to-your-application)
 * [Receiving a fix message from your application](#receiving-a-fix-message-from-your-application)
 * [Quickstart/Example](#quickstartexample)
@@ -17,6 +18,17 @@ Table of Contents
   * [Is your application compatible with FIX 5.0 SP2?](#is-your-application-compatible-with-fix-50-sp2)
   * [Is your application compatible with a QuickFix peer?](#is-your-application-compatible-with-a-quickfix-peer)
 
+
+##Using fix4j in your project
+via maven:
+```
+        <dependency>
+            <groupId>org.fix4j</groupId>
+            <artifactId>fix4j-assert-all</artifactId>
+            <version>1.3</version>
+            <scope>test</scope>
+        </dependency>
+```
 
 ##Sending a fix message to your application
 The example below shows how to send fix messages to your application using fix4j-assert:
