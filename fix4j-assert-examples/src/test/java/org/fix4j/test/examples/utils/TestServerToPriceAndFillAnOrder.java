@@ -12,8 +12,6 @@ import org.fix4j.test.session.TestSessionHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static org.junit.Assert.assertEquals;
-
 /**
  * Can be used by a client test to:
  * --Receive a MarketDataRequest

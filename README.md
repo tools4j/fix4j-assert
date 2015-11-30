@@ -45,7 +45,7 @@ session.expect("35=X|262=/AASDJKG\d+/);
 ```
 
 ##Quickstart/Example
-[See here for an example showing the sending and receiving of FIX messages.](https://github.com/fix4j/fix4j-assert/blob/master/fix4j-assert-examples/src/test/java/org.fix4j.test/examples/clients/MatchingSessionTest.java).
+[See here for an example showing the sending and receiving of FIX messages.](https://github.com/fix4j/fix4j-assert/blob/master/fix4j-assert-examples/src/test/java/org/fix4j/test/examples/clients/MatchingSessionTest.java).
 
 ##Using more descriptive message formats
 You may have noticed that the format for sending a message and matching an incoming message is quite similar.  They actually use the same underlying code base.  fix4j-assert provides more descriptive message formats to make our tests more readable.  
