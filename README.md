@@ -93,7 +93,7 @@ Or Ctrl-A delimiters:
 ```java
 session.send("35=V^A262=AASDJKG790^A263=0^A264=20^A267=2^A269=0^A269=1^A146=3^A55=GBP/USD^A64=SP^A55=AUD/USD^A64=SP^A55=USD/JPY^A64=SP");
 ```
-[See here for an example showing the usage of various message formats.](https://github.com/fix4j/fix4j-assert/blob/master/fix4j-assert-examples/src/test/java/org.fix4j.test/examples/clients/VariousMessageFormatsTest.java).
+[See here for an example showing the usage of various message formats.](https://github.com/fix4j/fix4j-assert/blob/master/fix4j-assert-examples/src/test/java/org/fix4j/test/examples/clients/VariousMessageFormatsTest.java).
 
 ##Debugging your tests
 Debugging fix applications can often be difficult, given the asynchronous nature of the messaging combined with the obscure format of fix.
@@ -155,12 +155,3 @@ fix4j-assert-quickfix | Provides the QuickFix integration for fix4j-assert.
 fix4j-assert-codegen | Generates fix4j-assert FIX spec code from FIX xml specs/data-dictionaries.
 fix4j-assert-fixspec-50sp2 | fix4j-assert FIX spec code for the FIX-5.0SP2 data-dictionary.
 fix4j-assert-testcommon | Common library that fix4j-assert's own tests use.  (You don't need to include this directly
-
-##How to use fix4j-assert modules
-###Is your application compatible with FIX 5.0 SP2?
-Remember that FIX versions are backwards compatible (well at least 5.0 SP2 is).  So if your application is compatible with say FIX 4.2, then it should also be compatible with 5.0 SP2.  If your application is NOT compatible with FIX 5.0 SP2, then you will need to generate fix4j-assert fix spec code from a valid FIX xml specification document.  See this wiki page TODO.
-
-###Is your application compatible with a QuickFix peer?
-(Chances are the answer to this question is 'yes'.)  If your application is NOT compatible with a QuickFix peer, then you will need to write an integration module, integrating your FIX engine of choice with fix4j-assert.  See this wiki page TODO.  
-
-**If the answer is 'yes' to both of these questions**, then simply configure your test to depend on **fix4j-assert-all**.  
