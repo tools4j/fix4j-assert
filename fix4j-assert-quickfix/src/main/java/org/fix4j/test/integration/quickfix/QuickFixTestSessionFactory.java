@@ -39,27 +39,32 @@ public class QuickFixTestSessionFactory implements FixEngineSessionFactory {
 
     private Connector create(final SessionID quickfixSessionId, final QuickFixApplication app, final FixConnectionMode fixConnectionMode){
         try {
+            final ApplicationProperties properties = ApplicationProperties.Singleton.instance();
             final SessionSettings settings = new SessionSettings();
             settings.setString("ConnectionType", (fixConnectionMode == FixConnectionMode.INITIATOR ? "initiator": "acceptor"));
             settings.setString("SenderCompID", quickfixSessionId.getSenderCompID());
             settings.setString("TargetCompID", quickfixSessionId.getTargetCompID());
-            settings.setString("SocketConnectHost", ApplicationProperties.Singleton.instance().getAsString(QuickFixProperties.SOCKET_CONNECT_HOST, "localhost"));
-            settings.setString("StartTime", ApplicationProperties.Singleton.instance().getAsString("quickfix.start.time", "00:00:00"));
-            settings.setString("EndTime", ApplicationProperties.Singleton.instance().getAsString("quickfix.end.time", "00:00:00"));
-            settings.setString("HeartBtInt", ApplicationProperties.Singleton.instance().getAsString("quickfix.heart.beat.interval", "10"));
+            settings.setString("SocketConnectHost", properties.getAsString(QuickFixProperties.SOCKET_CONNECT_HOST, "localhost"));
+            settings.setString("StartTime", properties.getAsString(QuickFixProperties.START_TIME, "00:00:00"));
+            settings.setString("EndTime", properties.getAsString(QuickFixProperties.END_TIME, "00:00:00"));
+            settings.setString("HeartBtInt", properties.getAsString(QuickFixProperties.HEART_BEAT_INTERVAL, "10"));
             settings.setString("BeginString", quickfixSessionId.getBeginString());
-            settings.setString("ReconnectInterval", ApplicationProperties.Singleton.instance().getAsString("quickfix.reconnect.interval", "5"));
-            settings.setString("UseDataDictionary", ApplicationProperties.Singleton.instance().getAsString("quickfix.use.data.dictionary", "Y"));
+            settings.setString("ReconnectInterval", properties.getAsString(QuickFixProperties.RECONNECT_INTERVAL, "5"));
+            settings.setString("UseDataDictionary", properties.getAsString(QuickFixProperties.USE_DATA_DICTIONARY, "Y"));
+            settings.setString("AllowUnknownMsgFields", properties.getAsString(QuickFixProperties.ALLOW_UNKNOWN_MSG_FIELDS, "Y"));
+            settings.setString("ValidateFieldsOutOfOrder", properties.getAsString(QuickFixProperties.VALIDATE_FIELDS_OUT_OF_ORDER, "N"));
+            settings.setString("ValidateFieldsHaveValues", properties.getAsString(QuickFixProperties.VALIDATE_FIELDS_HAVE_VALUES, "N"));
+            settings.setString("ValidateUserDefinedFields", properties.getAsString(QuickFixProperties.VALIDATE_USER_DEFINED_FIELDS, "N"));
 
             if(fixConnectionMode == FixConnectionMode.INITIATOR) {
-                settings.setString(quickfixSessionId, "SocketConnectPort", ApplicationProperties.Singleton.instance().getAsString("quickfix.socket.connect.port", "9880"));
+                settings.setString(quickfixSessionId, "SocketConnectPort", properties.getAsString(QuickFixProperties.SOCKET_CONNECT_PORT, "9880"));
             } else if(fixConnectionMode == FixConnectionMode.ACCEPTOR){
-                settings.setString(quickfixSessionId, "SocketAcceptPort", ApplicationProperties.Singleton.instance().getAsString("quickfix.socket.accept.port", "9880"));
+                settings.setString(quickfixSessionId, "SocketAcceptPort", properties.getAsString(QuickFixProperties.SOCKET_ACCEPT_PORT, "9880"));
             } else {
                 throw new IllegalArgumentException("Unknown mode:" + fixConnectionMode);
             }
 
-            final boolean logHeartbeats = ApplicationProperties.Singleton.instance().getAsBoolean("quickfix.log.heartbeats", true);
+            final boolean logHeartbeats = properties.getAsBoolean(QuickFixProperties.LOG_HEARTBEATS, true);
             final MemoryStoreFactory messageStoreFactory = new MemoryStoreFactory();
             final ScreenLogFactory logFactory = new ScreenLogFactory(true, true, true, logHeartbeats);
             final DefaultMessageFactory messageFactory = new DefaultMessageFactory();
