@@ -16,7 +16,11 @@ public enum QuickFixProperties implements Keyable<String> {
     USE_DATA_DICTIONARY("fix4j.quickfix.use.data.dictionary"),
     SOCKET_CONNECT_PORT("fix4j.quickfix.socket.connect.port"),
     SOCKET_ACCEPT_PORT("fix4j.quickfix.socket.accept.port"),
-    LOG_HEARTBEATS("fix4j.quickfix.log.heartbeats");
+    LOG_HEARTBEATS("fix4j.quickfix.log.heartbeats"),
+    ALLOW_UNKNOWN_MSG_FIELDS("fix4j.quickfix.allow.unknown.msg.fields"),
+    VALIDATE_FIELDS_OUT_OF_ORDER("fix4j.quickfix.validate.fields.out.of.order"),
+    VALIDATE_FIELDS_HAVE_VALUES("fix4j.quickfix.validate.fields.have.values"),
+    VALIDATE_USER_DEFINED_FIELDS("fix4j.quickfix.validate.user.defined.fields");
 
     private final String key;
 

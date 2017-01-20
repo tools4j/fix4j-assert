@@ -3,6 +3,7 @@ package org.fix4j.test.messageflags;
 import org.fix4j.test.expression.FlexibleMessageExpressionParser;
 import org.fix4j.test.fixmodel.Field;
 import org.fix4j.test.fixmodel.FixMessage;
+import org.fix4j.test.fixspec.FieldType;
 import org.fix4j.test.fixspec.FixSpecification;
 import org.fix4j.test.matching.matchers.FixMessageMatcher;
 import org.fix4j.test.util.Consts;
@@ -36,7 +37,12 @@ public class SessionLevelRejectMessageFlagRule implements MessageFlagRule {
         if(refTagId != null){
             try {
                 int refTagIdInt = Integer.valueOf(refTagId.getValue());
-                refTagName = fixSpecification.getFieldTypeByTag(refTagIdInt).getName();
+                final FieldType fieldType = fixSpecification.getFieldTypeByTag(refTagIdInt);
+                if(fieldType != null) {
+                    refTagName = fieldType.getName();
+                } else {
+                    refTagName = null;
+                }
             } catch(NumberFormatException e){
                 refTagName = null;
             }

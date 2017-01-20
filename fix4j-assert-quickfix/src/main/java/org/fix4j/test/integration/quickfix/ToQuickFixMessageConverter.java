@@ -1,5 +1,6 @@
 package org.fix4j.test.integration.quickfix;
 
+import org.fix4j.test.fixspec.FieldType;
 import org.fix4j.test.fixspec.GroupType;
 import org.fix4j.test.integration.MessageConverter;
 import org.fix4j.test.fixmodel.Field;
@@ -69,7 +70,13 @@ public class ToQuickFixMessageConverter implements MessageConverter<FixMessage, 
     }
 
     private void addFieldToQuickfixFieldMap(final Field field, final FieldMap fieldMap) {
-        final FieldClass fieldClass = fixSpecification.getFieldTypeByTag(field.getTag()).getFieldClass();
+        final FieldType fieldType = fixSpecification.getFieldTypeByTag(field.getTag());
+        if(fieldType == null){
+            fieldMap.setString(field.getTag().getValue(), field.getValue());
+            return;
+        }
+
+        final FieldClass fieldClass = fieldType.getFieldClass();
 
         switch (fieldClass) {
             case TZTIMESTAMP:
