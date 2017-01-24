@@ -44,7 +44,7 @@ public class MatchingSessionTest {
         //Create a new session which initiates connection to the server
         client = helper.createMatchingSession(new FixSessionId("FIX.4.4", "CLIENT_COMP_ID", "SERVER_COMP_ID"), FixConnectionMode.INITIATOR);
 
-        //Discard all messges until a Logon message is received
+        //Discard all messages until a Logon message is received
         client.discardUntil(MsgTypes.Logon);
 
         //Send a MarketDataRequest
@@ -55,7 +55,7 @@ public class MatchingSessionTest {
         quote.getField("NoMDEntries[2].MDEntryPx").assertValueEquals(1.12335);
 
         //Now send an order...");
-        client.send("35=D|38=1000|59=1|100=N|40=1|11=ORD10001|60=20070123-19:01:17|55=AUD/USD|54=1|");
+        client.send("35=D|38=1000|59=1|100=N|40=1|11=ORD10001|60=20070123-19:01:17|55=AUD/USD|54=1|9004=asdf");
 
         //Waiting for fill
         final FixMessage fill = client.discardUntil(MsgTypes.ExecutionReport);
