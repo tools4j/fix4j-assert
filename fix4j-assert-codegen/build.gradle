@@ -1,0 +1,5 @@
+
+description = ''
+dependencies {
+    compile group: 'org.codehaus.groovy', name: 'groovy-all', version:'2.3.8'
+}

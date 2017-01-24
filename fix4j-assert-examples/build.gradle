@@ -1,0 +1,33 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+
+/**
+NOTE!: this gradle module does NOT have a parent.
+
+It is designed to be run after a maven release to central has been done as a way to test the release.
+
+When running the tests, the fix4j artifacts should be downloaded from the central repo.
+**/
+
+group = 'org.fix4j'
+version = '1.0-SNAPSHOT'
+
+description = 'Module to test a released version of fix4j-assert'
+
+sourceCompatibility = 1.5
+targetCompatibility = 1.5
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}
+
+
+
+repositories {
+        
+     maven { url "http://repo.maven.apache.org/maven2" }
+}
+dependencies {
+    compile group: 'org.fix4j', name: 'fix4j-assert-core', version:'1.4'
+    testCompile group: 'org.fix4j', name: 'fix4j-assert-all', version:'1.4'
+    testCompile group: 'org.fix4j', name: 'fix4j-assert-testcommon', version:'1.4'
+}
