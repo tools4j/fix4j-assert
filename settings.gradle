@@ -1,0 +1,18 @@
+rootProject.name = 'fix4j-assert'
+include ':fix4j-assert-core'
+include ':fix4j-assert-quickfix'
+include ':fix4j-assert-acceptance'
+include ':fix4j-assert-codegen'
+include ':fix4j-assert-fixspec-50sp2'
+include ':fix4j-assert-all'
+include ':fix4j-assert-testcommon'
+include ':fix4j-assert-integration'
+
+project(':fix4j-assert-core').projectDir = "$rootDir/fix4j-assert-core" as File
+project(':fix4j-assert-quickfix').projectDir = "$rootDir/fix4j-assert-quickfix" as File
+project(':fix4j-assert-acceptance').projectDir = "$rootDir/fix4j-assert-acceptance" as File
+project(':fix4j-assert-codegen').projectDir = "$rootDir/fix4j-assert-codegen" as File
+project(':fix4j-assert-fixspec-50sp2').projectDir = "$rootDir/fix4j-assert-fixspec-50sp2" as File
+project(':fix4j-assert-all').projectDir = "$rootDir/fix4j-assert-all" as File
+project(':fix4j-assert-testcommon').projectDir = "$rootDir/fix4j-assert-testcommon" as File
+project(':fix4j-assert-integration').projectDir = "$rootDir/fix4j-assert-integration" as File

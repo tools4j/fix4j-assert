@@ -1,0 +1,7 @@
+
+description = ''
+dependencies {
+  compile project(':fix4j-assert-core')
+  compile project(':fix4j-assert-fixspec-50sp2')
+  compile project(':fix4j-assert-testcommon')
+}
