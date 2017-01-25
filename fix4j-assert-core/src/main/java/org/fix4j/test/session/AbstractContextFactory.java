@@ -125,7 +125,7 @@ public abstract class AbstractContextFactory implements ContextFactory {
      * from the {@link org.fix4j.test.plumbing.Processor#process} method.
      *
      * If the processor wishes to stop a FixMessage from being received by the test code, then it can return null from
-     * the {@link org.fix4j.test.plumbing.Processor#process method. See: {@link org.fix4j.test.processors.InboundIgnoreProcessor}
+     * the {@link org.fix4j.test.plumbing.Processor#process} method. See: {@link org.fix4j.test.processors.InboundIgnoreProcessor}
      *
      * A processor does not have to modify or stop the FixMessage.  As in the case of the {@link org.fix4j.test.processors.InboundRecentMessageProcessor},
      * the fixMessage is simply recorded for later use.
