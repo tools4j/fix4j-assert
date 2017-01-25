@@ -1,5 +1,6 @@
 package ${packageName};
 
+import org.fix4j.test.expression.RawFixMessageExpressionParser;
 import org.fix4j.test.fixmodel.FixMessage;
 import org.fix4j.test.fixspec.BaseTag;
 import org.fix4j.test.fixspec.FieldAndGroupTypes;
@@ -9,7 +10,7 @@ import org.fix4j.test.fixspec.GroupKey;
 import org.fix4j.test.fixspec.GroupType;
 import org.fix4j.test.fixspec.MsgType;
 import org.fix4j.test.fixspec.Tag;
-import org.fix4j.test.expression.MessageExpressionParser;
+import org.fix4j.test.expression.FlexibleMessageExpressionParser;
 
 public class FixSpec implements FixSpecification {
     public static final FixSpec INSTANCE = new FixSpec();
@@ -92,7 +93,12 @@ public class FixSpec implements FixSpecification {
 
     @Override
     public FixMessage parse(final String expression) {
-        return (new MessageExpressionParser(this)).parse(expression).asMessage(this);
+        return (new FlexibleMessageExpressionParser(this)).parse(expression).asMessage(this);
+    }
+
+    @Override
+    public FixMessage parseRawFix(final String expression) {
+        return (new RawFixMessageExpressionParser(this)).parse(expression).asMessage(this);
     }
 
     @Override

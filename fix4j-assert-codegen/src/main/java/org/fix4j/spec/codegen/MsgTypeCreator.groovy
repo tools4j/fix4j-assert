@@ -36,7 +36,7 @@ public class MsgTypeCreator {
         CompositeContentHelper.buildGroupChildrenForClass(message.children.values(), sb, "        ");
         sb.append("        );\n" +
                 "    }\n" +
-                "}");
+                "}\n");
         def str = sb.toString()
         return str
     }
