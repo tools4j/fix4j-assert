@@ -32,7 +32,8 @@ public class MatchingSessionTest extends Specification{
             "[NoRelatedSym]146=3|" +
                 "[Symbol]55=GBP/USD|" +
                 "[Symbol]55=AUD/USD|" +
-                "[Symbol]55=USD/JPY|";
+                "[Symbol]55=USD/JPY|" +
+            "9999=CustomField";
     
     final String NEW_ORDER_SINGLE =
             "[MsgType]35=D[NEWORDERSINGLE]|" +
@@ -44,7 +45,7 @@ public class MatchingSessionTest extends Specification{
             "[TransactTime]60=20070123-19:01:17|" +
             "[Symbol]55=HPQ|" +
             "[Side]54=1[BUY]|" +
-            "[HandlInst]21=2[AUTOMATED_EXECUTION_ORDER_PUBLIC_BROKER_INTERVENTION_OK]|";
+            "9999=CustomField";
 
     public void setupSpec() throws InterruptedException {
         final TestSessionHelper helper = new TestSessionHelper(new DefaultContextFactory());
