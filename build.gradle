@@ -4,8 +4,7 @@ allprojects {
     apply plugin: 'maven'
     apply plugin: 'signing'
 
-    group = 'org.fix4j'
-    version = '1.4'
+    group = 'org.fix4j' version = '1.5'
 }
 
 subprojects {
@@ -16,9 +15,6 @@ subprojects {
         options.encoding = 'UTF-8'
     }
 
-    tasks.withType(Javadoc) {
-        options.addStringOption('Xdoclint:none', '-quiet')
-    }
 
     repositories {
         mavenLocal()
