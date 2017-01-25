@@ -70,7 +70,7 @@ subprojects {
                 pom.project {
                     name 'Fix4j Assert'
                     packaging 'jar'
-                    artifactId 'fix4j-assert'
+                    artifactId project.name
                     description 'fix4j-assert is a library to assist in testing of applications using FIX protocol'
                     url 'http://www.fix4j.org'
 

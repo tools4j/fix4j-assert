@@ -77,9 +77,9 @@ public class MultipleSessionsTest implements Handler {
         createAndRegisterServer(helper, new FixSessionId("FIX.4.4", "SERVER_COMP_ID", "CLIENT_COMP_ID_2"), 9881);
         createAndRegisterServer(helper, new FixSessionId("FIX.4.4", "SERVER_COMP_ID", "CLIENT_COMP_ID_3"), 9882);
 
-        final MatchingSession clientSession1 = helper.createMatchingSession(new FixSessionId("FIX.4.4", "CLIENT_COMP_ID_1", "SERVER_COMP_ID"), FixConnectionMode.INITIATOR, StringUtils.parseMap("quickfix.socket.connect.port:9880"));
-        final MatchingSession clientSession2 = helper.createMatchingSession(new FixSessionId("FIX.4.4", "CLIENT_COMP_ID_2", "SERVER_COMP_ID"), FixConnectionMode.INITIATOR, StringUtils.parseMap("quickfix.socket.connect.port:9881"));
-        final MatchingSession clientSession3 = helper.createMatchingSession(new FixSessionId("FIX.4.4", "CLIENT_COMP_ID_3", "SERVER_COMP_ID"), FixConnectionMode.INITIATOR, StringUtils.parseMap("quickfix.socket.connect.port:9882"));
+        final MatchingSession clientSession1 = helper.createMatchingSession(new FixSessionId("FIX.4.4", "CLIENT_COMP_ID_1", "SERVER_COMP_ID"), FixConnectionMode.INITIATOR, StringUtils.parseMap("fix4j.quickfix.socket.connect.port:9880"));
+        final MatchingSession clientSession2 = helper.createMatchingSession(new FixSessionId("FIX.4.4", "CLIENT_COMP_ID_2", "SERVER_COMP_ID"), FixConnectionMode.INITIATOR, StringUtils.parseMap("fix4j.quickfix.socket.connect.port:9881"));
+        final MatchingSession clientSession3 = helper.createMatchingSession(new FixSessionId("FIX.4.4", "CLIENT_COMP_ID_3", "SERVER_COMP_ID"), FixConnectionMode.INITIATOR, StringUtils.parseMap("fix4j.quickfix.socket.connect.port:9882"));
 
         clientSession1.send(StringUtils.substituteVariables(MARKET_DATA_REQUEST, StringUtils.parseMap("symbol:AUD/USD,requestId:1234")));
         clientSession2.send(StringUtils.substituteVariables(MARKET_DATA_REQUEST, StringUtils.parseMap("symbol:GBP/USD,requestId:2345")));
@@ -104,7 +104,7 @@ public class MultipleSessionsTest implements Handler {
     }
 
     private DispatchingSession createAndRegisterServer(final TestSessionHelper helper, final FixSessionId fixSessionId, final int acceptorPort) {
-        final DispatchingSession server = helper.createDispatchingSession(fixSessionId, FixConnectionMode.ACCEPTOR, StringUtils.parseMap("quickfix.socket.accept.port:" + acceptorPort), this);
+        final DispatchingSession server = helper.createDispatchingSession(fixSessionId, FixConnectionMode.ACCEPTOR, StringUtils.parseMap("fix4j.quickfix.socket.accept.port:" + acceptorPort), this);
         servers.put(fixSessionId, server);
         return server;
     }
