@@ -4,7 +4,8 @@ allprojects {
     apply plugin: 'maven'
     apply plugin: 'signing'
 
-    group = 'org.fix4j' version = '1.5'
+    group = 'org.fix4j'
+    version = '1.5'
 }
 
 subprojects {
