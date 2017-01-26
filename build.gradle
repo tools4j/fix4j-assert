@@ -8,14 +8,17 @@ allprojects {
     version = '1.5'
 }
 
+def deployUsername = hasProperty('ossrhUsername') ? ossrhUsername : 'not-given'
+def deployPassword = hasProperty('ossrhPassword') ? ossrhPassword : 'not-given'
+
 subprojects {
     apply plugin: 'java'
     sourceCompatibility = 1.7
     targetCompatibility = 1.7
+
     tasks.withType(JavaCompile) {
         options.encoding = 'UTF-8'
     }
-
 
     repositories {
         mavenLocal()
@@ -60,11 +63,11 @@ subprojects {
                 beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
                 repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-                    authentication(userName: ossrhUsername, password: ossrhPassword)
+                    authentication(userName: deployUsername, password: deployPassword)
                 }
 
                 snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-                    authentication(userName: ossrhUsername, password: ossrhPassword)
+                    authentication(userName: deployUsername, password: deployPassword)
                 }
 
                 pom.project {
