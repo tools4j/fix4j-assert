@@ -11,6 +11,14 @@ allprojects {
 def deployUsername = hasProperty('ossrhUsername') ? ossrhUsername : 'not-given'
 def deployPassword = hasProperty('ossrhPassword') ? ossrhPassword : 'not-given'
 
+if (JavaVersion.current().isJava8Compatible()) {
+    allprojects {
+        tasks.withType(Javadoc) {
+            options.addStringOption('Xdoclint:none', '-quiet')
+        }
+    }
+}
+
 subprojects {
     apply plugin: 'java'
     sourceCompatibility = 1.7
