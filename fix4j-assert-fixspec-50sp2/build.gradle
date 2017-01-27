@@ -1,12 +1,38 @@
 description = ''
-dependencies {
-    compile project(':fix4j-assert-core')
-    testCompile(group: 'junit', name: 'junit', version: '4.12') {
-        exclude(module: 'hamcrest-core')
+
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/generated/java'
+        }
     }
-    testCompile group: 'org.hamcrest', name: 'hamcrest-core', version: '1.3'
-    testCompile group: 'org.hamcrest', name: 'hamcrest-library', version: '1.3'
-    testCompile(group: 'org.mockito', name: 'mockito-core', version: '2.0.31-beta') {
-        exclude(module: 'hamcrest-core')
+    codegen {
+        java {
+            srcDir 'src/codegen/java'
+        }
+        resources {
+            srcDir 'src/codegen/resources'
+        }
     }
 }
+
+task genMain( type: JavaExec ) {
+    main = 'org.fix4j.spec.codegen.SpecParser'
+    classpath = sourceSets.codegen.runtimeClasspath
+    args = ['/FIX50SP2.xml', 'org.fix4j.spec.fix50sp2']
+    final File javaWorkingDir = new File("${projectDir}/src/generated/java/org/fix4j/spec/fix50sp2/")
+    javaWorkingDir.mkdirs()
+    workingDir = javaWorkingDir.absolutePath
+}
+
+clean.doFirst {
+    delete "${projectDir}/src/generated"
+}
+
+dependencies {
+    compile project(':fix4j-assert-core')
+    codegenCompile project(':fix4j-assert-codegen')
+}
+
+compileJava.dependsOn(genMain)
