@@ -5,7 +5,7 @@ allprojects {
     apply plugin: 'signing'
 
     group = 'org.fix4j'
-    version = '1.5'
+    version = '1.6'
 }
 
 def deployUsername = hasProperty('ossrhUsername') ? ossrhUsername : 'not-given'

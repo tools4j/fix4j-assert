@@ -28,11 +28,14 @@ via maven:
         <dependency>
             <groupId>org.fix4j</groupId>
             <artifactId>fix4j-assert-all</artifactId>
-            <version>1.3</version>
+            <version>1.6</version>
             <scope>test</scope>
         </dependency>
 ```
-
+via gradle:
+```
+        testCompile group: 'org.fix4j', name: 'fix4j-assert-all', version:'1.6'
+```
 ##Sending a fix message to your application
 The example below shows how to send fix messages to your application using fix4j-assert:
 
