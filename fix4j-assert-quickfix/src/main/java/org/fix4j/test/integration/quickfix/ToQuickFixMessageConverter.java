@@ -116,7 +116,7 @@ public class ToQuickFixMessageConverter implements MessageConverter<FixMessage, 
             case LENGTH:
                 fieldMap.setInt(field.getTag().getValue(), Integer.parseInt(field.getValue())); break;
             case PRICEOFFSET:
-                fieldMap.setInt(field.getTag().getValue(), Integer.parseInt(field.getValue())); break;
+                fieldMap.setDouble(field.getTag().getValue(), Double.parseDouble(field.getValue())); break;
             case UTCTIMEONLY:
                 fieldMap.setInt(field.getTag().getValue(), Integer.parseInt(field.getValue())); break;
             case LANGUAGE:
