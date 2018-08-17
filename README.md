@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/tools4j/fix4j-assert.svg?branch=master)](https://travis-ci.org/tools4j/fix4j-assert)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.fix4j/fix4j-assert-all/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.fix4j/fix4j-assert-all)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.fix4j/fix4j-assert-all/badge.svg)](https://search.maven.org/search?q=a:fix4j-assert-all)
 
 #fix4j-assert 
 fix4j-assert is a library to assist in testing of applications using FIX protocol.
