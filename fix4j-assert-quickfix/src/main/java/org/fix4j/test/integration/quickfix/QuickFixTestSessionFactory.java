@@ -17,6 +17,8 @@ import quickfix.SessionSettings;
 import quickfix.SocketAcceptor;
 import quickfix.SocketInitiator;
 
+import java.util.Map;
+
 /**
  * User: ben
  * Date: 20/08/2014
@@ -24,9 +26,15 @@ import quickfix.SocketInitiator;
  */
 public class QuickFixTestSessionFactory implements FixEngineSessionFactory {
     private final FixSpecification fixSpecification;
+    private final ApplicationProperties properties;
+    private final Map additionalQuickFixProperties;
 
-    public QuickFixTestSessionFactory(final FixSpecification fixSpecification) {
+    public QuickFixTestSessionFactory(final FixSpecification fixSpecification,
+                                      final ApplicationProperties properties,
+                                      final Map additionalQuickFixProperties) {
         this.fixSpecification = fixSpecification;
+        this.properties = properties;
+        this.additionalQuickFixProperties = additionalQuickFixProperties;
     }
 
     @Override
@@ -39,7 +47,6 @@ public class QuickFixTestSessionFactory implements FixEngineSessionFactory {
 
     private Connector create(final SessionID quickfixSessionId, final QuickFixApplication app, final FixConnectionMode fixConnectionMode){
         try {
-            final ApplicationProperties properties = ApplicationProperties.Singleton.instance();
             final SessionSettings settings = new SessionSettings();
             settings.setString("ConnectionType", (fixConnectionMode == FixConnectionMode.INITIATOR ? "initiator": "acceptor"));
             settings.setString("SenderCompID", quickfixSessionId.getSenderCompID());
@@ -55,6 +62,8 @@ public class QuickFixTestSessionFactory implements FixEngineSessionFactory {
             settings.setString("ValidateFieldsOutOfOrder", properties.getAsString(QuickFixProperties.VALIDATE_FIELDS_OUT_OF_ORDER, "N"));
             settings.setString("ValidateFieldsHaveValues", properties.getAsString(QuickFixProperties.VALIDATE_FIELDS_HAVE_VALUES, "N"));
             settings.setString("ValidateUserDefinedFields", properties.getAsString(QuickFixProperties.VALIDATE_USER_DEFINED_FIELDS, "N"));
+            settings.setString("ResetOnLogon", properties.getAsString(QuickFixProperties.RESET_ON_LOGON, "N"));
+            settings.set(additionalQuickFixProperties);
 
             if(fixConnectionMode == FixConnectionMode.INITIATOR) {
                 settings.setString(quickfixSessionId, "SocketConnectPort", properties.getAsString(QuickFixProperties.SOCKET_CONNECT_PORT, "9880"));

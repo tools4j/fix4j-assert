@@ -22,8 +22,10 @@ task genMain( type: JavaExec ) {
     classpath = sourceSets.codegen.runtimeClasspath
     args = ['/FIX50SP2.xml', 'org.fix4j.spec.fix50sp2']
     final File javaWorkingDir = new File("${projectDir}/src/generated/java/org/fix4j/spec/fix50sp2/")
-    javaWorkingDir.mkdirs()
     workingDir = javaWorkingDir.absolutePath
+    doFirst {
+        javaWorkingDir.mkdirs()
+    }
 }
 
 clean.doFirst {

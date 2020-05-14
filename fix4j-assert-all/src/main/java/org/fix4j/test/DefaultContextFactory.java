@@ -7,6 +7,7 @@ import org.fix4j.test.integration.quickfix.QuickFixTestSessionFactory;
 import org.fix4j.test.properties.ApplicationProperties;
 import org.fix4j.test.session.AbstractContextFactory;
 
+import java.util.Collections;
 import java.util.Map;
 import java.util.Properties;
 
@@ -17,12 +18,22 @@ import java.util.Properties;
  */
 public class DefaultContextFactory extends AbstractContextFactory {
 
+    private final ApplicationProperties properties;
+    private final Map<String, String> additionalQuickFixProperties;
+
     public DefaultContextFactory() {
+        this(ApplicationProperties.Singleton.instance(), Collections.emptyMap());
+    }
+
+    public DefaultContextFactory(final ApplicationProperties properties,
+                                 final Map<String, String> additionalQuickFixProperties) {
         super(FixSpec.INSTANCE);
+        this.properties = properties;
+        this.additionalQuickFixProperties = additionalQuickFixProperties;
     }
 
     @Override
     protected FixEngineSessionFactory createFixEngineSessionFactory(final FixSpecification fixSpecification) {
-        return new QuickFixTestSessionFactory(fixSpecification);
+        return new QuickFixTestSessionFactory(fixSpecification, properties, additionalQuickFixProperties);
     }
 }
