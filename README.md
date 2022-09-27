@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/tools4j/fix4j-assert.svg?branch=master)](https://travis-ci.org/tools4j/fix4j-assert)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.fix4j/fix4j-assert-all/badge.svg)](https://search.maven.org/search?q=a:fix4j-assert-all)
 
-#fix4j-assert 
+# fix4j-assert 
 fix4j-assert is a library to assist in testing of applications using FIX protocol.
 
 It's written in Java and is designed to be used along side your test frameworks of choice.  e.g. JUnit, Spock, TestNG
@@ -22,7 +22,7 @@ Table of Contents
   * [Is your application compatible with a QuickFix peer?](#is-your-application-compatible-with-a-quickfix-peer)
 
 
-##Using fix4j-assert in your project
+## Using fix4j-assert in your project
 via maven:
 ```
         <dependency>
@@ -43,17 +43,17 @@ The example below shows how to send fix messages to your application using fix4j
 session.send("35=V|262=AASDJKG790|263=0|264=20|267=2|269=0|269=1|146=3|55=GBP/USD|64=SP|55=AUD/USD|64=SP|55=USD/JPY|64=SP|");
 ```
 
-##Receiving a fix message from your application
+## Receiving a fix message from your application
 In the example below, ```expect``` will throw an ```AssertionError``` if the next message to arrive does not match the given pattern.  Note, the regular expression to match the requestId. Regular expressions begin and end in forward slashes.
 
 ```java
 session.expect("35=X|262=/AASDJKG\d+/);
 ```
 
-##Quickstart/Example
+## Quickstart/Example
 [See here for an example showing the sending and receiving of FIX messages.](https://github.com/fix4j/fix4j-assert/blob/master/fix4j-assert-examples/src/test/java/org/fix4j/test/examples/clients/MatchingSessionTest.java).
 
-##Using more descriptive message formats
+## Using more descriptive message formats
 You may have noticed that the format for sending a message and matching an incoming message is quite similar.  They actually use the same underlying code base.  fix4j-assert provides more descriptive message formats to make our tests more readable.  
 
 Below example with descriptors mixed in with fix tags and values:
@@ -101,7 +101,7 @@ session.send("35=V^A262=AASDJKG790^A263=0^A264=20^A267=2^A269=0^A269=1^A146=3^A5
 ```
 [See here for an example showing the usage of various message formats.](https://github.com/fix4j/fix4j-assert/blob/master/fix4j-assert-examples/src/test/java/org/fix4j/test/examples/clients/VariousMessageFormatsTest.java).
 
-##Debugging your tests
+## Debugging your tests
 Debugging fix applications can often be difficult, given the asynchronous nature of the messaging combined with the obscure format of fix.
 fix4j-assert attempts to address this issue by providing detailed error messages when a test fails.  In the example below, we were expecting a MarketDataRequest with one of the symbols being GBP/XXX.
 ```
@@ -148,7 +148,7 @@ RECENT OUTBOUND MESSAGES
     2. [MsgType]35=8[EXECUTIONREPORT]|[Symbol]55=CVS|[OrderID]37=ORD10001/03232009|[ClOrdID]11=ORD10001|[ExecID]17=12345678|[ExecType]150=2|[OrdStatus]39=2[FILLED]|[Side]54=1[BUY]|[OrderQty]38=1000|[OrdType]40=1[MARKET]|[TimeInForce]59=1[GOOD_TILL_CANCEL_GTC]|[LastPx]31=1.12355|[LastQty]32=1000|[CumQty]14=0|[AvgPx]6=0|[LeavesQty]151=0|[TransactTime]60=20070123-19:01:17|[Text]58=Fill|[LastMkt]30=N|[SecurityExchange]207=N|[SettlType]63=0[REGULAR__FX_SPOT_SETTLEMENT_T1_OR_T2_DEPENDING_ON_CURRENCY]|
 ```
 
-##Project Structure
+## Project Structure
 
 module | description
 :------|:-----------------------------------
