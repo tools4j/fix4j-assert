@@ -20,7 +20,8 @@ public enum QuickFixProperties implements Keyable<String> {
     ALLOW_UNKNOWN_MSG_FIELDS("fix4j.quickfix.allow.unknown.msg.fields"),
     VALIDATE_FIELDS_OUT_OF_ORDER("fix4j.quickfix.validate.fields.out.of.order"),
     VALIDATE_FIELDS_HAVE_VALUES("fix4j.quickfix.validate.fields.have.values"),
-    VALIDATE_USER_DEFINED_FIELDS("fix4j.quickfix.validate.user.defined.fields");
+    VALIDATE_USER_DEFINED_FIELDS("fix4j.quickfix.validate.user.defined.fields"),
+    RESET_ON_LOGON("fix4j.quickfix.reset.on.logon");
 
     private final String key;
 
