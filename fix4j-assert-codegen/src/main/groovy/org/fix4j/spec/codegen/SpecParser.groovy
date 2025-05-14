@@ -1,4 +1,5 @@
 package org.fix4j.spec.codegen
+import groovy.xml.XmlParser
 /**
  * User: ben
  * Date: 26/08/2014
@@ -29,7 +30,7 @@ public class SpecParser {
         final LinkedHashMap headerFields = getChildrenComponentsGroupsAndFields((Node) xmlRoot["header"][0]);
         final LinkedHashMap trailerFields = getChildrenComponentsGroupsAndFields((Node) xmlRoot["trailer"][0]);
 
-        final LinkedHashMap messagesWithComponentsExpanded = messages = substituteComponentsInEntities(messages, components);
+        final LinkedHashMap messagesWithComponentsExpanded = substituteComponentsInEntities(messages, components);
         final LinkedHashMap headerFieldsWithComponentsExpanded = substituteComponentsInEntities(headerFields, components);
         final LinkedHashMap trailerFieldsWithComponentsExpanded = substituteComponentsInEntities(trailerFields, components);
 

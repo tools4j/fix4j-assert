@@ -1,5 +1,10 @@
+plugins {
+    id 'groovy'
+}
 
 description = ''
 dependencies {
-    compile group: 'org.codehaus.groovy', name: 'groovy-all', version:'2.3.8'
+  implementation libs.groovy
+  implementation libs.groovy.xml
+  implementation libs.groovy.templates
 }

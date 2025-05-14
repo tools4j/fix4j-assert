@@ -17,7 +17,10 @@ public class FixSpecificationClassCreator {
         def template = engine.createTemplate(reader).make(binding)
 
         final String fileContent = template.toString();
-        def file = new File("FixSpec.java")
+        def packagePath = packageName.replace('.', File.separator)
+        def outputDir = new File("src/generated/java/${packagePath}")
+        if (!outputDir.exists()) outputDir.mkdirs()
+        def file = new File(outputDir, "FixSpec.java")
         file.write(fileContent)
         println "Written FixSpec.java to:" + file.absolutePath;
     }

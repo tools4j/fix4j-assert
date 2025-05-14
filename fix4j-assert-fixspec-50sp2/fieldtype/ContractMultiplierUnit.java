@@ -1,0 +1,49 @@
+package org.fix4j.spec.fix50sp2.fieldtype;
+
+
+import org.fix4j.test.fixspec.BaseFieldType;
+import org.fix4j.test.fixspec.FieldClass;
+import org.fix4j.test.fixspec.FieldClassLookup;
+import org.fix4j.test.fixspec.FieldTypeValueEnum;
+import org.fix4j.test.fixmodel.Field;
+
+public class ContractMultiplierUnit extends BaseFieldType {
+    public static final ContractMultiplierUnit INSTANCE = new ContractMultiplierUnit();
+
+    private ContractMultiplierUnit() {
+        super(
+            "ContractMultiplierUnit",
+            1435,
+            FieldClassLookup.lookup("INT"),
+            Values.class
+        );
+    }
+
+    public static Field withValue(final String value){ return new Field(INSTANCE, value); }
+    public static Field withValue(final long value){ return new Field(INSTANCE, ""+value); }
+
+    public static FieldFactory withValue(){ return new FieldFactory(); }
+
+    public static class FieldFactory{
+        public final Field DAYS = new Field(ContractMultiplierUnit.INSTANCE, Values.DAYS.getOrdinal());
+        public final Field HOURS = new Field(ContractMultiplierUnit.INSTANCE, Values.HOURS.getOrdinal());
+        public final Field SHARES = new Field(ContractMultiplierUnit.INSTANCE, Values.SHARES.getOrdinal());
+    }
+
+    public enum Values implements FieldTypeValueEnum {
+        DAYS("2"),
+        HOURS("1"),
+        SHARES("0");
+
+        private final String ordinal;
+
+        private Values(final String ordinal) {
+            this.ordinal = ordinal;
+        }
+
+        @Override
+        public String getOrdinal() {
+            return ordinal;
+        }
+    }
+}

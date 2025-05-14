@@ -10,9 +10,10 @@ public class FieldTypeCreator {
         def it = fields.values().iterator();
         while(it.hasNext()){
             def field = it.next();
-            final File parentDir = new File("fieldtype");
-            if(!parentDir.exists()) parentDir.mkdir();
-            final File file = new File("fieldtype/" + field.name + ".java");
+            def packagePath = packageName.replace('.', File.separator)
+            def outputDir = new File("src/generated/java/${packagePath}/fieldtype")
+            if(!outputDir.exists()) outputDir.mkdirs()
+            final File file = new File(outputDir, field.name + ".java")
             file.write(createFieldTypeClassContent(packageName, field));
         }
     }

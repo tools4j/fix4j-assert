@@ -2,6 +2,9 @@ package org.fix4j.test.util;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -19,7 +22,6 @@ public class DateUtils {
     private final static List<DateFormat> timestampFormatsInLocalTz;
     private final static List<DateFormat> timestampFormatsInUtc;
     private final static List<DateFormat> dateFormatsInLocalTz;
-    private final static List<DateFormat> dateFormatsInUtc;
 
     public static final TimeZone UTC = TimeZone.getTimeZone("UTC");
 
@@ -55,7 +57,6 @@ public class DateUtils {
         timestampFormatsInLocalTz = Collections.unmodifiableList(_timestampFormatsInLocalTz);
         timestampFormatsInUtc = Collections.unmodifiableList(_timestampFormatsInUtc);
         dateFormatsInLocalTz = Collections.unmodifiableList(_dateFormatsInLocalTz);
-        dateFormatsInUtc = Collections.unmodifiableList(_dateFormatsInUtc);
     }
 
     public static Date parseTimestamp(final String value) {
@@ -69,10 +70,11 @@ public class DateUtils {
         throw new IllegalArgumentException("Could not convert timestamp: " + value);
     }
 
-    public static Date parseUtcTimestamp(final String value) {
+    public static LocalDateTime parseUtcTimestamp(final String value) {
         for(final DateFormat timestampFormat: timestampFormatsInUtc){
             try{
-                return timestampFormat.parse(value);
+                Date date = timestampFormat.parse(value);
+                return LocalDateTime.ofInstant(date.toInstant(), ZoneId.of("UTC"));
             } catch(Exception e) {
                 //nothing
             }
@@ -80,10 +82,11 @@ public class DateUtils {
         throw new IllegalArgumentException("Could not convert timestamp: " + value);
     }
 
-    public static Date parseDate(final String value) {
+    public static LocalDate parseDate(final String value) {
         for(final DateFormat dateFormat: dateFormatsInLocalTz){
             try{
-                return dateFormat.parse(value);
+                Date date = dateFormat.parse(value);
+                return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             } catch(Exception e) {
                 //nothing
             }

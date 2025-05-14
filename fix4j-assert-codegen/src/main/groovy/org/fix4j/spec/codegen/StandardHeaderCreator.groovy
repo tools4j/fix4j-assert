@@ -7,7 +7,10 @@ package org.fix4j.spec.codegen
 public class StandardHeaderCreator {
 
     protected static writeStandardHeaderJavaFile(final String packageName, final Collection headerFields) {
-        def file = new File("StandardHeader.java")
+        def packagePath = packageName.replace('.', File.separator)
+        def outputDir = new File("src/generated/java/${packagePath}")
+        if (!outputDir.exists()) outputDir.mkdirs()
+        def file = new File(outputDir, "StandardHeader.java")
         file.write(createStandardHeaderContent(packageName, headerFields));
         println "Written StandardHeader.java to:" + file.absolutePath;
     }

@@ -16,3 +16,55 @@ project(':fix4j-assert-fixspec-50sp2').projectDir = "$rootDir/fix4j-assert-fixsp
 project(':fix4j-assert-all').projectDir = "$rootDir/fix4j-assert-all" as File
 project(':fix4j-assert-testcommon').projectDir = "$rootDir/fix4j-assert-testcommon" as File
 project(':fix4j-assert-integration').projectDir = "$rootDir/fix4j-assert-integration" as File
+
+dependencyResolutionManagement {
+    versionCatalogs {
+        libs {
+            // Logging
+            version('slf4j', '2.0.17')
+            library('slf4j-api', 'org.slf4j', 'slf4j-api').versionRef('slf4j')
+            library('slf4j-simple', 'org.slf4j', 'slf4j-simple').versionRef('slf4j')
+            
+            // Testing - JUnit 5
+            version('junit-jupiter', '5.12.2')
+            library('junit-jupiter-api', 'org.junit.jupiter', 'junit-jupiter-api').versionRef('junit-jupiter')
+            library('junit-jupiter-engine', 'org.junit.jupiter', 'junit-jupiter-engine').versionRef('junit-jupiter')
+            version('junit-platform', '1.12.2')
+            library('junit-platform-launcher', 'org.junit.platform', 'junit-platform-launcher').versionRef('junit-platform')
+            
+            // Testing - Spock
+            version('groovy', '4.0.17')
+            library('groovy', 'org.apache.groovy', 'groovy').versionRef('groovy')
+            library('groovy-all', 'org.apache.groovy', 'groovy-all').versionRef('groovy')
+            library('groovy-xml', 'org.apache.groovy', 'groovy-xml').versionRef('groovy')
+            library('groovy-templates', 'org.apache.groovy', 'groovy-templates').versionRef('groovy')
+            version('spock', '2.3-groovy-4.0')
+            library('spock-core', 'org.spockframework', 'spock-core').versionRef('spock')
+            
+            // Testing - Other
+            version('junit4', '4.13.2')
+            library('junit4', 'junit', 'junit').versionRef('junit4')
+            
+            // Hamcrest
+            version('hamcrest', '2.2')
+            library('hamcrest-core', 'org.hamcrest', 'hamcrest-core').versionRef('hamcrest')
+            
+            // Various test runtime dependencies
+            version('cglib', '3.3.0')
+            library('cglib-nodep', 'cglib', 'cglib-nodep').versionRef('cglib')
+            
+            version('objenesis', '3.3')
+            library('objenesis', 'org.objenesis', 'objenesis').versionRef('objenesis')
+            
+            version('byte-buddy', '1.14.12')
+            library('byte-buddy', 'net.bytebuddy', 'byte-buddy').versionRef('byte-buddy')
+            
+            // QuickFix dependencies
+            version('quickfixj', '2.3.2')
+            library('quickfixj-core', 'org.quickfixj', 'quickfixj-core').versionRef('quickfixj')
+            
+            version('mina', '2.2.4')
+            library('mina-core', 'org.apache.mina', 'mina-core').versionRef('mina')
+        }
+    }
+}

@@ -7,7 +7,10 @@ package org.fix4j.spec.codegen
 public class StandardTrailerCreator {
 
     protected static writeStandardTrailerJavaFile(final String packageName, final Collection trailerFields) {
-        def file = new File("StandardTrailer.java")
+        def packagePath = packageName.replace('.', File.separator)
+        def outputDir = new File("src/generated/java/${packagePath}")
+        if (!outputDir.exists()) outputDir.mkdirs()
+        def file = new File(outputDir, "StandardTrailer.java")
         file.write(createStandardHeaderContent(packageName, trailerFields));
         println "Written StandardTrailer.java to:" + file.absolutePath;
     }

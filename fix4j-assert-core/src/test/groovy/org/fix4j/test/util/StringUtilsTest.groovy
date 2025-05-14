@@ -60,164 +60,163 @@ class StringUtilsTest extends Specification {
 
     def "pad left with spaces, null string"() {
         when:
-        assert StringUtils.padLeft(null, 0);
+        StringUtils.padLeft(null, 0)
 
         then:
-        final IllegalArgumentException ex = thrown();
-        assert ex.message == "Given string cannot be null";
+        final IllegalArgumentException ex = thrown()
+        ex.message == "Given string cannot be null"
     }
 
     //PAD RIGHT WITH SPACES
     def "pad right with spaces, non zero length string"() {
         expect:
-        assert StringUtils.padRight("blah", 0) == "blah";
-        assert StringUtils.padRight("blah", 3) == "blah";
-        assert StringUtils.padRight("blah", 4) == "blah";
-        assert StringUtils.padRight("blah", 5) == "blah ";
-        assert StringUtils.padRight("blah", 10) == "blah      ";
+        StringUtils.padRight("blah", 0) == "blah"
+        StringUtils.padRight("blah", 3) == "blah"
+        StringUtils.padRight("blah", 4) == "blah"
+        StringUtils.padRight("blah", 5) == "blah "
+        StringUtils.padRight("blah", 10) == "blah      "
     }
 
     def "pad right with spaces, zero length string"() {
         expect:
-        assert StringUtils.padRight("", 0) == "";
-        assert StringUtils.padRight("", 3) == "   ";
+        StringUtils.padRight("", 0) == ""
+        StringUtils.padRight("", 3) == "   "
     }
 
     def "pad right with spaces, null string"() {
         when:
-        assert StringUtils.padRight(null, 0);
+        StringUtils.padRight(null, 0)
 
         then:
-        final IllegalArgumentException ex = thrown();
-        assert ex.message == "Given string cannot be null";
+        final IllegalArgumentException ex = thrown()
+        ex.message == "Given string cannot be null"
     }
 
     //PAD LEFT WITH CHARS
     def "pad left with chars, non zero length string"() {
         expect:
-        assert StringUtils.padLeft("blah", ".", 0) == "blah";
-        assert StringUtils.padLeft("blah", ".", 3) == "blah";
-        assert StringUtils.padLeft("blah", ".", 4) == "blah";
-        assert StringUtils.padLeft("blah", ".", 5) == ".blah";
-        assert StringUtils.padLeft("blah", ".", 10) == "......blah";
-        assert StringUtils.padLeft("blah", ".", 10) == "......blah";
+        StringUtils.padLeft("blah", ".", 0) == "blah"
+        StringUtils.padLeft("blah", ".", 3) == "blah"
+        StringUtils.padLeft("blah", ".", 4) == "blah"
+        StringUtils.padLeft("blah", ".", 5) == ".blah"
+        StringUtils.padLeft("blah", ".", 10) == "......blah"
     }
 
     def "pad left with chars, zero length string"() {
         expect:
-        assert StringUtils.padLeft("", ".", 0) == "";
-        assert StringUtils.padLeft("", ".", 3) == "...";
+        StringUtils.padLeft("", ".", 0) == ""
+        StringUtils.padLeft("", ".", 3) == "..."
     }
 
     def "pad left with chars, null string"() {
         when:
-        assert StringUtils.padLeft(null, ".", 0);
+        StringUtils.padLeft(null, ".", 0)
 
         then:
-        final IllegalArgumentException ex = thrown();
-        assert ex.message == "Given string cannot be null";
+        final IllegalArgumentException ex = thrown()
+        ex.message == "Given string cannot be null"
     }
 
     //PAD RIGHT WITH CHARS
     def "pad right with chars, non zero length string"() {
         expect:
-        assert StringUtils.padRight("blah", ".", 0) == "blah";
-        assert StringUtils.padRight("blah", ".", 3) == "blah";
-        assert StringUtils.padRight("blah", ".", 4) == "blah";
-        assert StringUtils.padRight("blah", ".", 5) == "blah.";
-        assert StringUtils.padRight("blah", ".", 10) == "blah......";
+        StringUtils.padRight("blah", ".", 0) == "blah"
+        StringUtils.padRight("blah", ".", 3) == "blah"
+        StringUtils.padRight("blah", ".", 4) == "blah"
+        StringUtils.padRight("blah", ".", 5) == "blah."
+        StringUtils.padRight("blah", ".", 10) == "blah......"
     }
 
     def "pad right with chars, zero length string"() {
         expect:
-        assert StringUtils.padRight("", ".", 0) == "";
-        assert StringUtils.padRight("", ".", 3) == "...";
+        StringUtils.padRight("", ".", 0) == ""
+        StringUtils.padRight("", ".", 3) == "..."
     }
 
     def "pad right with chars, zero length pad"() {
         when:
-        assert StringUtils.padRight("blah", "", 20);
+        StringUtils.padRight("blah", "", 20)
 
         then:
-        final IllegalArgumentException ex = thrown();
-        assert ex.message == "Given pad String must be of length 1";
+        final IllegalArgumentException ex = thrown()
+        ex.message == "Given pad String must be of length 1"
     }
 
     def "pad right with chars, null string"() {
         when:
-        assert StringUtils.padRight(null, ".", 0);
+        StringUtils.padRight(null, ".", 0)
 
         then:
-        final IllegalArgumentException ex = thrown();
-        assert ex.message == "Given string cannot be null";
+        final IllegalArgumentException ex = thrown()
+        ex.message == "Given string cannot be null"
     }
 
     def "pad right with chars, pad longer than one character"() {
         when:
-        assert StringUtils.padRight("blah", "..", 20);
+        StringUtils.padRight("blah", "..", 20)
 
         then:
-        final IllegalArgumentException ex = thrown();
-        assert ex.message == "Given pad String must be of length 1";
+        final IllegalArgumentException ex = thrown()
+        ex.message == "Given pad String must be of length 1"
     }
 
     def "left, given string is null"() {
         when:
-        assert StringUtils.left(null, 1);
+        StringUtils.left(null, 1)
 
         then:
-        final IllegalArgumentException ex = thrown();
-        assert ex.message == "Given String cannot be null. [n=1]";
+        final IllegalArgumentException ex = thrown()
+        ex.message == "Given String cannot be null. [n=1]"
     }
 
     def "left, n is negative"() {
         when:
-        assert StringUtils.left("12345", -1);
+        StringUtils.left("12345", -1)
 
         then:
-        final IllegalArgumentException ex = thrown();
-        assert ex.message == "n must be greater than or equal to zero. [n=-1, s=12345]";
+        final IllegalArgumentException ex = thrown()
+        ex.message == "n must be greater than or equal to zero. [n=-1, s=12345]"
     }
 
     def "left, positive tests"() {
         expect:
-        assert StringUtils.left("12345", 3) == "123";
-        assert StringUtils.left("12345", 1) == "1";
-        assert StringUtils.left("12345", 5) == "12345";
-        assert StringUtils.left("12345", 10) == "12345";
-        assert StringUtils.left("12345", 0) == "";
-        assert StringUtils.left("", 0) == "";
-        assert StringUtils.left("", 10) == "";
+        StringUtils.left("12345", 3) == "123"
+        StringUtils.left("12345", 1) == "1"
+        StringUtils.left("12345", 5) == "12345"
+        StringUtils.left("12345", 10) == "12345"
+        StringUtils.left("12345", 0) == ""
+        StringUtils.left("", 0) == ""
+        StringUtils.left("", 10) == ""
     }
 
 
     def "right, given string is null"() {
         when:
-        assert StringUtils.right(null, 1);
+        StringUtils.right(null, 1)
 
         then:
-        final IllegalArgumentException ex = thrown();
-        assert ex.message == "Given String cannot be null. [n=1]";
+        final IllegalArgumentException ex = thrown()
+        ex.message == "Given String cannot be null. [n=1]"
     }
 
     def "right, n is negative"() {
         when:
-        assert StringUtils.right("12345", -1);
+        StringUtils.right("12345", -1)
 
         then:
-        final IllegalArgumentException ex = thrown();
-        assert ex.message == "n must be greater than or equal to zero. [n=-1, s=12345]";
+        final IllegalArgumentException ex = thrown()
+        ex.message == "n must be greater than or equal to zero. [n=-1, s=12345]"
     }
 
     def "right, positive tests"() {
         expect:
-        assert StringUtils.right("12345", 3) == "345";
-        assert StringUtils.right("12345", 1) == "5";
-        assert StringUtils.right("12345", 5) == "12345";
-        assert StringUtils.right("12345", 10) == "12345";
-        assert StringUtils.right("12345", 0) == "";
-        assert StringUtils.right("", 0) == "";
-        assert StringUtils.right("", 10) == "";
+        StringUtils.right("12345", 3) == "345"
+        StringUtils.right("12345", 1) == "5"
+        StringUtils.right("12345", 5) == "12345"
+        StringUtils.right("12345", 10) == "12345"
+        StringUtils.right("12345", 0) == ""
+        StringUtils.right("", 0) == ""
+        StringUtils.right("", 10) == ""
     }
 
     def "test repeat"(){

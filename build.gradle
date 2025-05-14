@@ -1,19 +1,24 @@
 allprojects {
-    apply plugin: 'maven'
     apply plugin: 'groovy'
-    apply plugin: 'maven'
+    apply plugin: 'maven-publish'
     apply plugin: 'signing'
 
     group = 'org.fix4j'
-    version = '1.6'
+    version = '1.7'
+
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(17)
+        }
+    }
 }
 
-def deployUsername = hasProperty('ossrhUsername') ? ossrhUsername : 'not-given'
-def deployPassword = hasProperty('ossrhPassword') ? ossrhPassword : 'not-given'
+def deployUsername = providers.gradleProperty('ossrhUsername').orElse('not-given').get()
+def deployPassword = providers.gradleProperty('ossrhPassword').orElse('not-given').get()
 
 if (JavaVersion.current().isJava8Compatible()) {
     allprojects {
-        tasks.withType(Javadoc) {
+        tasks.withType(Javadoc).configureEach {
             options.addStringOption('Xdoclint:none', '-quiet')
         }
     }
@@ -21,94 +26,124 @@ if (JavaVersion.current().isJava8Compatible()) {
 
 subprojects {
     apply plugin: 'java'
-    sourceCompatibility = 1.8
-    targetCompatibility = 1.8
+    
+    java {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
 
-    tasks.withType(JavaCompile) {
+    tasks.withType(JavaCompile).configureEach {
         options.encoding = 'UTF-8'
+        options.release = 17
     }
 
     repositories {
         mavenLocal()
-
-        maven { url "http://repo.maven.apache.org/maven2" }
-        maven { url "http://repo.marketcetera.org/maven" }
+        maven { url = uri("https://repo.maven.apache.org/maven2") }
+        maven { url = uri("https://repo.marketcetera.org/maven") }
     }
 
     dependencies {
-        compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.3.0'
-        compile group: 'org.slf4j', name: 'slf4j-api', version: '1.3.0'
-        testCompile group: 'junit', name: 'junit', version: '4.11'
-        testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
-        // dependencies for using Spock
-        testCompile "org.hamcrest:hamcrest-core:1.3" // only necessary if Hamcrest matchers are used
-        testRuntime "cglib:cglib-nodep:3.1"          // allows mocking of classes (in addition to interfaces)
-        testRuntime "org.objenesis:objenesis:2.1"    // allows mocking of classes without default constructor (together with CGLIB)
-
+        implementation libs.slf4j.api
+        testImplementation libs.junit4
+        testImplementation libs.spock.core
+        testImplementation libs.hamcrest.core
+        testRuntimeOnly libs.cglib.nodep
+        testRuntimeOnly libs.objenesis
+        testRuntimeOnly libs.slf4j.simple
     }
 
-    task javadocJar(type: Jar) {
-        classifier = 'javadoc'
+    testing {
+        suites {
+            test {
+                useJUnitJupiter()
+            }
+        }
+    }
+
+    configurations.all {
+        exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+    }
+
+    tasks.register('javadocJar', Jar) {
+        archiveClassifier = 'javadoc'
         from javadoc
     }
 
-    task sourcesJar(type: Jar) {
-        classifier = 'sources'
+    tasks.register('sourcesJar', Jar) {
+        archiveClassifier = 'sources'
         from sourceSets.main.allSource
     }
 
-    artifacts {
-        archives javadocJar, sourcesJar
-    }
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                from components.java
+                artifact tasks.named('sourcesJar')
+                artifact tasks.named('javadocJar')
 
-    signing {
-        required { gradle.taskGraph.hasTask("uploadArchives") }
-        sign configurations.archives
-    }
-
-    uploadArchives {
-        repositories {
-            mavenDeployer {
-                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
-                repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-                    authentication(userName: deployUsername, password: deployPassword)
+                pom.withXml {
+                    def dependenciesNode = asNode().get('dependencies')?.get(0)
+                    if (dependenciesNode != null) {
+                        dependenciesNode.children().removeAll { dep ->
+                            dep.scope.text() == 'test'
+                        }
+                    }
                 }
 
-                snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-                    authentication(userName: deployUsername, password: deployPassword)
-                }
-
-                pom.project {
-                    name 'Fix4j Assert'
-                    packaging 'jar'
-                    artifactId project.name
-                    description 'fix4j-assert is a library to assist in testing of applications using FIX protocol'
-                    url 'http://www.fix4j.org'
+                pom {
+                    name = 'Fix4j Assert'
+                    packaging = 'jar'
+                    artifactId = project.name
+                    description = 'fix4j-assert is a library to assist in testing of applications using FIX protocol'
+                    url = 'http://www.fix4j.org'
 
                     scm {
-                        connection 'scm:git:git://github.com/tools4j/groovy-tables.git'
-                        developerConnection 'scm:git:git@github.com:tools4j/fix4j-assert.git'
-                        url 'https://github.com/tools4j/fix4j-assert'
+                        connection = 'scm:git:git://github.com/tools4j/groovy-tables.git'
+                        developerConnection = 'scm:git:git@github.com:tools4j/fix4j-assert.git'
+                        url = 'https://github.com/tools4j/fix4j-assert'
                     }
 
                     licenses {
                         license {
-                            name 'GNU General Public License (GPL)'
-                            url 'http://www.gnu.org/licenses/gpl.txt'
+                            name = 'GNU General Public License (GPL)'
+                            url = 'http://www.gnu.org/licenses/gpl.txt'
                         }
                     }
 
                     developers {
                         developer {
-                            id 'ben'
-                            name 'Ben Warner'
-                            email 'bjwarner@gmail.com'
+                            id = 'ben'
+                            name = 'Ben Warner'
+                            email = 'bjwarner@gmail.com'
                         }
                     }
                 }
             }
         }
+        
+        repositories {
+            maven {
+                def releasesRepoUrl = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
+                def snapshotsRepoUrl = uri("https://oss.sonatype.org/content/repositories/snapshots/")
+                url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+                credentials {
+                    username = deployUsername
+                    password = deployPassword
+                }
+            }
+        }
+    }
+    
+    signing {
+        required = { gradle.taskGraph.hasTask("publish") }
+        sign publishing.publications.mavenJava
+    }
+    
+    tasks.register('uploadArchives') {
+        dependsOn publish
+        group = 'upload'
+        description = 'Uploads all artifacts to Maven Central (redirects to publish task)'
     }
 }
 

@@ -160,14 +160,14 @@ class OnFailureReportsTest extends Specification {
     public void testRecentInboundMessages(){
         when:
         final FixMessage clientLogon = client.discardUntil(MsgTypes.Logon);
-        final FixMessage serverLogon = server.discardUntil(MsgTypes.Logon);
+        def serverLogon = server.discardUntil(MsgTypes.Logon);
 
         client.send(newOrderSingle1);
         client.send(newOrderSingle2);
         client.send(marketDataRequest2);
 
-        final recievedNewOrderSingle1 = server.discardUntil(MsgTypes.NewOrderSingle);
-        final recievedNewOrderSingle2 = server.discardUntil(MsgTypes.NewOrderSingle);
+        def recievedNewOrderSingle1 = server.discardUntil(MsgTypes.NewOrderSingle);
+        def recievedNewOrderSingle2 = server.discardUntil(MsgTypes.NewOrderSingle);
 
         //Cause a failure by waiting for a MarketDataRequest, but assert it contains a newOrderSingle tag
         server.discardUntil(MsgTypes.MarketDataRequest, "[MsgType]35=D[NEWORDERSINGLE]");

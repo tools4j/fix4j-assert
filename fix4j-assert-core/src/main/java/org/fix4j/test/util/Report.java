@@ -8,7 +8,7 @@ import java.util.List;
  * --With some classes we want to return a FAIL/WARN/INFO.  e.g. We might want to fail-fast when inbound messages are flagged, i.e. we've received a session
  *   level reject.  Whereas we might have configured the system to just flag it as a warning.
  *
- *   FAIL/WARN/INFO & report
+ *   FAIL/WARN/INFO and report
  *
  *
  * --With some classes we want to return matches=true/false.  e.g. a matcher might be used to decide whether to filter out
@@ -16,7 +16,7 @@ import java.util.List;
  *   in the filter might seem strange.  i.e. we get a FAIL so we don't filter.
  *
  *   MatchResult
- *   true/false & report
+ *   true/false and report
  *
  *
  * --With some classes we want to return a "directive" and a report.  e.g. when doing a discardUntilMatch assert, we want
@@ -25,12 +25,12 @@ import java.util.List;
  *   when it does match, does not really make sense.
  *
  *   MatchActivityDirectiveAndReport
- *   directive & report
+ *   directive and report
  *
  *
  *   --In some cases we want to return the matches message and a report.  e.g. when doing message matching for oncoming messages.
  *   MatchActivityResult
- *   message & success & report
+ *   message and success and report
  *
  */
 public interface Report {

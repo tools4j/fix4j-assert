@@ -1,7 +1,32 @@
+plugins {
+    id 'groovy'
+}
 
 description = ''
 dependencies {
-  compile project(':fix4j-assert-core')
-  compile project(':fix4j-assert-all')
-  compile project(':fix4j-assert-testcommon')
+  implementation project(':fix4j-assert-core')
+  implementation project(':fix4j-assert-all')
+  implementation project(':fix4j-assert-testcommon')
+  implementation project(':fix4j-assert-fixspec-50sp2')
+  testImplementation libs.groovy.all
+}
+
+sourceSets {
+    test {
+        groovy {
+            srcDirs = ['src/test/groovy']
+        }
+    }
+}
+
+testing {
+    suites {
+        test {
+            useJUnitJupiter()
+        }
+    }
+}
+
+configurations.all {
+    exclude group: 'org.slf4j', module: 'slf4j-log4j12'
 }
