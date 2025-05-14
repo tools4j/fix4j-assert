@@ -70,18 +70,18 @@ class FlexibleMessageExpressionParserTest extends Specification {
 
     def "test ParseFieldType, text for unknown tag"() {
         when:
-        assert parser.parseFieldType("BlahBlah") == FieldTypes.MsgType;
+        parser.parseFieldType("BlahBlah")
 
         then:
-        thrown IllegalArgumentException.class;
+        thrown IllegalArgumentException.class
     }
 
     def "test ParseFieldType, tag text is given between round brackets (not square)"() {
         when:
-        assert parser.parseFieldType("(MsgType)35") == FieldTypes.MsgType;
+        parser.parseFieldType("(MsgType)35")
 
         then:
-        thrown IllegalArgumentException.class;
+        thrown IllegalArgumentException.class
     }
 
     def "test ParseFieldType, tag text is given after tag number"() {

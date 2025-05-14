@@ -1,14 +1,11 @@
-description = ''
-
-configurations {
-    codegenImplementation
-    codegenClasspath {
-        canBeResolved = true
-        canBeConsumed = false
-        extendsFrom codegenImplementation
-    }
+plugins {
+    id 'java'
+    id 'maven-publish'
 }
 
+description = ''
+
+// Define sourceSet first before configuration
 sourceSets {
     main {
         java {
@@ -22,6 +19,16 @@ sourceSets {
         resources {
             srcDir 'src/codegen/resources'
         }
+    }
+}
+
+// Configuration after sourceSet defined
+configurations {
+    codegenImplementation
+    codegenClasspath {
+        canBeResolved = true
+        canBeConsumed = false
+        extendsFrom codegenImplementation
     }
 }
 

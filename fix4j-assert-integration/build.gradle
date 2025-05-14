@@ -1,6 +1,23 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+}
+
 description = ''
 dependencies {
   implementation project(':fix4j-assert-core')
   implementation project(':fix4j-assert-fixspec-50sp2')
-  implementation project(':fix4j-assert-testcommon')
+  testImplementation project(':fix4j-assert-testcommon')
+  testImplementation libs.junit.jupiter.api
+  testImplementation libs.groovy
+  testRuntimeOnly libs.junit.jupiter.engine
+  testRuntimeOnly libs.junit.platform.launcher
+}
+
+testing {
+    suites {
+        test {
+            useJUnitJupiter()
+        }
+    }
 }

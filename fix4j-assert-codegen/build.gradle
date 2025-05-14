@@ -1,8 +1,10 @@
-apply plugin: 'groovy'
+plugins {
+    id 'groovy'
+}
 
 description = ''
 dependencies {
-  implementation group: 'org.apache.groovy', name: 'groovy', version: '4.0.17'
-  implementation group: 'org.apache.groovy', name: 'groovy-xml', version: '4.0.17'
-  implementation group: 'org.apache.groovy', name: 'groovy-templates', version: '4.0.17'
+  implementation libs.groovy
+  implementation libs.groovy.xml
+  implementation libs.groovy.templates
 }

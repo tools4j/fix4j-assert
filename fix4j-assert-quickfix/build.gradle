@@ -1,8 +1,16 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+}
+
 description = ''
 dependencies {
   implementation project(':fix4j-assert-core')
-  implementation 'org.quickfixj:quickfixj-core:2.3.1'
-  implementation group: 'org.apache.mina', name: 'mina-core', version:'1.1.0'
+  implementation libs.quickfixj.core
+  implementation libs.mina.core
   testImplementation project(':fix4j-assert-fixspec-50sp2')
   testImplementation project(':fix4j-assert-testcommon')
+  testImplementation libs.junit.jupiter.api
+  testRuntimeOnly libs.junit.jupiter.engine
+  testRuntimeOnly libs.junit.platform.launcher
 }
