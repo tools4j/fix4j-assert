@@ -1,7 +1,7 @@
-
 description = ''
 dependencies {
-  compile project(':fix4j-assert-core')
-  compile project(':fix4j-assert-all')
-  compile project(':fix4j-assert-testcommon')
+  implementation project(':fix4j-assert-core')
+  implementation project(':fix4j-assert-all')
+  implementation project(':fix4j-assert-testcommon')
+  implementation project(':fix4j-assert-fixspec-50sp2')
 }

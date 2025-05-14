@@ -1,9 +1,8 @@
-
 description = ''
 dependencies {
-  compile project(':fix4j-assert-core')
-    compile group: 'org.apache.servicemix.bundles', name: 'org.apache.servicemix.bundles.quickfix', version:'1.5.3_1'
-    compile group: 'org.apache.mina', name: 'mina-core', version:'1.1.0'
-  testCompile project(':fix4j-assert-fixspec-50sp2')
-  testCompile project(':fix4j-assert-testcommon')
+  implementation project(':fix4j-assert-core')
+  implementation group: 'org.apache.servicemix.bundles', name: 'org.apache.servicemix.bundles.quickfix', version:'1.5.3_1'
+  implementation group: 'org.apache.mina', name: 'mina-core', version:'1.1.0'
+  testImplementation project(':fix4j-assert-fixspec-50sp2')
+  testImplementation project(':fix4j-assert-testcommon')
 }

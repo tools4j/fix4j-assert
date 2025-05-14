@@ -1,5 +1,8 @@
+apply plugin: 'groovy'
 
 description = ''
 dependencies {
-    compile group: 'org.codehaus.groovy', name: 'groovy-all', version:'2.3.8'
+  implementation group: 'org.apache.groovy', name: 'groovy', version: '4.0.17'
+  implementation group: 'org.apache.groovy', name: 'groovy-xml', version: '4.0.17'
+  implementation group: 'org.apache.groovy', name: 'groovy-templates', version: '4.0.17'
 }

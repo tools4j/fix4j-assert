@@ -1,5 +1,13 @@
 description = ''
 
+configurations {
+    codegenImplementation
+    codegenClasspath {
+        canBeResolved = true
+        canBeConsumed = false
+        extendsFrom codegenImplementation
+    }
+}
 
 sourceSets {
     main {
@@ -18,12 +26,10 @@ sourceSets {
 }
 
 task genMain( type: JavaExec ) {
-    main = 'org.fix4j.spec.codegen.SpecParser'
-    classpath = sourceSets.codegen.runtimeClasspath
+    mainClass = 'org.fix4j.spec.codegen.SpecParser'
+    classpath = sourceSets.codegen.runtimeClasspath + configurations.codegenClasspath
     args = ['/FIX50SP2.xml', 'org.fix4j.spec.fix50sp2']
-    final File javaWorkingDir = new File("${projectDir}/src/generated/java/org/fix4j/spec/fix50sp2/")
-    javaWorkingDir.mkdirs()
-    workingDir = javaWorkingDir.absolutePath
+    workingDir = projectDir
 }
 
 clean.doFirst {
@@ -31,8 +37,12 @@ clean.doFirst {
 }
 
 dependencies {
-    compile project(':fix4j-assert-core')
-    codegenCompile project(':fix4j-assert-codegen')
+  implementation project(':fix4j-assert-core')
+  codegenImplementation project(':fix4j-assert-codegen')
 }
 
 compileJava.dependsOn(genMain)
+
+tasks.named('processCodegenResources') {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}

@@ -10,9 +10,10 @@ public class MsgTypeCreator {
         def it = messages.values().iterator();
         while(it.hasNext()){
             def message = it.next();
-            final File parentDir = new File("msgtype");
-            if(!parentDir.exists()) parentDir.mkdir();
-            final File file = new File("msgtype/" + message.name + ".java");
+            def packagePath = packageName.replace('.', File.separator)
+            def outputDir = new File("src/generated/java/${packagePath}/msgtype")
+            if(!outputDir.exists()) outputDir.mkdirs()
+            final File file = new File(outputDir, message.name + ".java")
             file.write(createMsgTypeClassContent(packageName, message));
         }
     }

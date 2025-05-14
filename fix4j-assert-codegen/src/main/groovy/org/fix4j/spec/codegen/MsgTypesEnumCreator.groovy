@@ -18,7 +18,10 @@ public class MsgTypesEnumCreator {
         def template = engine.createTemplate(reader).make(binding)
 
         final String fieldTypeEnumContent = template.toString();
-        def fieldClassEnumFile = new File("MsgTypes.java")
+        def packagePath = packageName.replace('.', File.separator)
+        def outputDir = new File("src/generated/java/${packagePath}")
+        if (!outputDir.exists()) outputDir.mkdirs()
+        def fieldClassEnumFile = new File(outputDir, "MsgTypes.java")
         fieldClassEnumFile.write(fieldTypeEnumContent)
         println "Written MsgTypes.java to:" + fieldClassEnumFile.absolutePath;
     }

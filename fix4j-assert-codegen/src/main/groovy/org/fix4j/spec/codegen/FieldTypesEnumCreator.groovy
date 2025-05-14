@@ -17,7 +17,10 @@ public class FieldTypesEnumCreator {
         def template = engine.createTemplate(reader).make(binding)
 
         final String fieldTypeEnumContent = template.toString();
-        def fieldClassEnumFile = new File("FieldTypes.java")
+        def packagePath = packageName.replace('.', File.separator)
+        def outputDir = new File("src/generated/java/${packagePath}")
+        if (!outputDir.exists()) outputDir.mkdirs()
+        def fieldClassEnumFile = new File(outputDir, "FieldTypes.java")
         fieldClassEnumFile.write(fieldTypeEnumContent)
         println "Written FieldTypes.java to:" + fieldClassEnumFile.absolutePath;
     }

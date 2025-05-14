@@ -1,5 +1,5 @@
 
 description = ''
 dependencies {
-  testCompile project(':fix4j-assert-testcommon')
+  testImplementation project(':fix4j-assert-testcommon')
 }

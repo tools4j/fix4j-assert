@@ -1,3 +1,6 @@
 **/target
 *.iml
 **/.idea/*
+.gradle
+dist
+build

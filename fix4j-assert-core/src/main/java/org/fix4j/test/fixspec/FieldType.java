@@ -1,8 +1,5 @@
 package org.fix4j.test.fixspec;
 
-
-import org.omg.CORBA.UNKNOWN;
-
 import java.util.Map;
 
 /**

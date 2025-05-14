@@ -65,23 +65,21 @@ public class BlockingSessionTest extends Specification {
         server.shutdown();
     }
 
-    @Test
-    public void testClientSendsServerMessage() throws InterruptedException {
+    def "client sends server message"() {
         when:
-        client.send(MARKET_DATA_REQUEST);
-        final FixMessage msg = server.getNextMessage();
+        client.send(MARKET_DATA_REQUEST)
+        def msg = server.getNextMessage()
 
         then:
-        assertEquals(MsgTypes.MarketDataRequest, msg.getTypeOfMessage());
+        msg.getTypeOfMessage() == MsgTypes.MarketDataRequest
     }
 
-    @Test
-    public void testServerSendsClientMessage() throws InterruptedException {
+    def "server sends client message"() {
         when:
-        server.send(NEW_ORDER_SINGLE);
-        final FixMessage msg = client.getNextMessage();
+        server.send(NEW_ORDER_SINGLE)
+        def msg = client.getNextMessage()
 
         then:
-        assertEquals(MsgTypes.NewOrderSingle, msg.getTypeOfMessage());
+        msg.getTypeOfMessage() == MsgTypes.NewOrderSingle
     }
 }
